@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Paiement Électronique</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <link rel="stylesheet" href="../dist/style.min.css" />
+
+  
+</head>
+<body class="fr " dir="ltr">
+
+  <div class="container">
+
+      <header>
+        <div class="row">
+          <div class="col-xs-2">
+            <div class="logo">
+              <img src="../img/logo.png" alt="" />
+            </div>
+          </div>
+          <div class="col-xs-10">
+            <div class="heading">
+              <h1>
+Informations porteur
+</h1>
+              <p>
+Veuillez entrer les informations de votre carte
+</p>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <div class="row row-flex">
+        <div class="col-md-10 col-md-push-2">
+          
+  <form action="transact_confirm.html" class="form-horizontal form-intro transact-info">
+    <fieldset>
+      <div class="row">
+        <div class="col-lg-offset-1 col-xs-12 col-sm-6 col-lg-5">
+          <p class="text-right flip">Votre session expirera dans  <span class="label label-primary">19:25</span></p>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-lg-6">
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th>COMMANDE N°</th>
+                <th>MONTANT</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>00235689</td>
+                <td>9 450.00 DZD</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="hidden-md hidden-xs col-lg-1">
+          <span class="badge">1</span>
+        </div>
+        <label class="col-xs-12 col-sm-6 col-lg-5 control-label">Numéro de la carte de débit</label>
+        <div class="col-xs-12 col-sm-6 col-lg-6">
+          <input type="text" class="form-control" />
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="hidden-md hidden-xs col-lg-1">
+          <span class="badge">2</span>
+        </div>
+        <label class="col-xs-12 col-sm-6 col-lg-5 control-label">Date d'expiration</label>
+        <div class="col-xs-12 col-sm-6 col-lg-6">
+          <input type="text" class="form-control" />
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="hidden-md hidden-xs col-lg-1">
+          <span class="badge">3</span>
+        </div>
+        <label class="col-xs-12 col-sm-6 col-lg-5 control-label">Votre nom</label>
+        <div class="col-xs-12 col-sm-6 col-lg-6">
+          <input type="text" class="form-control" />
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="hidden-md hidden-xs col-lg-1">
+          <span class="badge">4</span>
+        </div>
+        <label class="col-xs-12 col-sm-6 col-lg-5 control-label">
+          Entrez le code CVV2
+          <button type="button" class="show-card btn btn-default btn-xs">?</button>
+        </label>
+        <div class="col-xs-12 col-sm-6 col-lg-6">
+          <input type="text" class="form-control" />
+          <p class="help-block">(Situé au dos de la carte)</p>
+        </div>
+      </div>
+
+
+      <div class="form-group">
+        <div class="col-lg-9 col-lg-offset-3">
+          <input type="submit" class="btn btn-primary pull-right flip" value="Valider" />
+        </div>
+      </div>
+    </fieldset>
+  </form>
+
+  <template id="show-card-template">
+    <div class="card-help">
+      <img src="../img/card-verso.png" alt="" />
+    </div>
+  </template>
+
+
+          <div class="copywrite text-center">
+            
+            <em class="copywrite-text">Tous droits réservés. Algérie Poste &copy; 2016</em>
+          </div>
+        </div>
+        <div class="col-md-2 col-md-pull-10">
+          <aside>
+            
+  
+    Ce site prend en charge le cryptage 256-bit. La confidentialité des données transmises est assurée par Algérie Poste. Les informations personnelles saisies ne seront pas divulguées ou fournies à quelque tiers que ce soit, sauf si la divulgation est requise par la loi.
+  
+
+          </aside>
+        </div>
+      </div>
+
+  </div>
+
+  <script src="../dist/script.min.js"></script>
+  
+<script>
+  $(function() {
+    $('.show-card').popover({
+      title: "Où trouver le code CVV2",
+      content: $('#show-card-template').html(),
+      html: true,
+      trigger: 'hover',
+      placement: 'top',
+    })
+  })
+</script>
+
+
+</body>
+</html>

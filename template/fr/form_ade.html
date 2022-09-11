@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Paiement Électronique</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <link rel="stylesheet" href="../dist/style.min.css" />
+
+  
+</head>
+<body class="fr base-facture" dir="ltr">
+
+  <div class="container">
+
+    <div class="row row-flex row-flex-start">
+
+      <div class="col-lg-8">
+        <header>
+          <div class="row">
+            <div class="col-xs-3">
+              <div class="logo">
+                <img src="../img/logo.png" alt="" />
+              </div>
+            </div>
+            <div class="col-xs-9">
+              <div class="heading">
+                <h1>
+Paiement facture
+</h1>
+                <p>Payez en toute sécurité</p>
+              </div>
+            </div>
+          </div>
+        </header>
+
+        <div class="row">
+          <div class="col-md-12">
+            
+  <form action="transact_info.html" class="form-horizontal form-bill form-ade">
+    <fieldset>
+      <legend>ADE</legend>
+
+      <div class="form-group">
+        <label class="col-lg-3">N° Facture <em>(1)</em></label>
+        <div class="col-lg-9">
+          <input type="text" id="ref" class="form-control show-on" />
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="col-lg-3">Code Client <em>(2)</em></label>
+        <div class="col-lg-9">
+          <input type="text" id="client-id" class="form-control show-on" />
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="col-lg-3">Montant <em>(3)</em></label>
+        <div class="col-lg-9">
+          <div class="input-group">
+            <input type="number" id="montant" class="form-control show-on" />
+            <span class="input-group-addon">DA</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="col-lg-3">CAPTCHA</label>
+        <div class="col-lg-7">
+          <div class="input-group">
+            <input type="text" class="form-control" />
+            <span class="input-group-addon">CAPTCHA</span>
+          </div>
+        </div>
+        <div class="col-lg-2">
+          <input type="submit" class="btn btn-primary pull-right flip" value="Valider" />
+        </div>
+      </div>
+
+    </fieldset>
+  </form>
+
+
+            <div class="copywrite text-center">
+              
+              <em class="copywrite-text">Tous droits réservés. Algérie Poste &copy; 2016</em>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-4">
+        
+<div class="figure-wrap figure-ade">
+  <img src="../img/facture-ade.jpg" alt="" />
+</div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <script src="../dist/script.min.js"></script>
+  
+<script>
+  $(function() {
+    $('input.show-on').showOn({
+      target: '.figure-wrap',
+      bind: {
+        'client-id': 'client-id',
+        'ref': 'bill-id',
+        'montant': 'amount',
+      },
+    });
+  })
+</script>
+
+
+</body>
+</html>

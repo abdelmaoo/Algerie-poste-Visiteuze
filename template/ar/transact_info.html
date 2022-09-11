@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>الدفع الإلكتروني</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <link rel="stylesheet" href="../dist/style.min.css" />
+
+  
+    <link rel="stylesheet" href="../dist/bootstrap-rtl.min.css" />
+  
+</head>
+<body class="ar " dir="rtl">
+
+  <div class="container">
+
+      <header>
+        <div class="row">
+          <div class="col-xs-2">
+            <div class="logo">
+              <img src="../img/logo.png" alt="" />
+            </div>
+          </div>
+          <div class="col-xs-10">
+            <div class="heading">
+              <h1>
+المـعلومات الشخصية
+</h1>
+              <p>
+يرجى إدخال معلومات بطاقتك
+</p>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <div class="row row-flex">
+        <div class="col-md-10 col-md-push-2">
+          
+  <form action="transact_confirm.html" class="form-horizontal form-intro transact-info">
+    <fieldset>
+      <div class="row">
+        <div class="col-lg-offset-1 col-xs-12 col-sm-6 col-lg-5">
+          <p class="text-right flip">صلاحية الدورة  تنتهي بعد  <span class="label label-primary">19:25</span></p>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-lg-6">
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th>الأمر رقم</th>
+                <th>المبلغ</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>00235689</td>
+                <td>9 450.00 DZD</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="hidden-md hidden-xs col-lg-1">
+          <span class="badge">1</span>
+        </div>
+        <label class="col-xs-12 col-sm-6 col-lg-5 control-label">رقم البطاقة</label>
+        <div class="col-xs-12 col-sm-6 col-lg-6">
+          <input type="text" class="form-control" />
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="hidden-md hidden-xs col-lg-1">
+          <span class="badge">2</span>
+        </div>
+        <label class="col-xs-12 col-sm-6 col-lg-5 control-label">تاريخ انتهاء الصحية</label>
+        <div class="col-xs-12 col-sm-6 col-lg-6">
+          <input type="text" class="form-control" />
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="hidden-md hidden-xs col-lg-1">
+          <span class="badge">3</span>
+        </div>
+        <label class="col-xs-12 col-sm-6 col-lg-5 control-label">الأسم</label>
+        <div class="col-xs-12 col-sm-6 col-lg-6">
+          <input type="text" class="form-control" />
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="hidden-md hidden-xs col-lg-1">
+          <span class="badge">4</span>
+        </div>
+        <label class="col-xs-12 col-sm-6 col-lg-5 control-label">
+          أدخل رمز CVV2
+          <button type="button" class="show-card btn btn-default btn-xs">?</button>
+        </label>
+        <div class="col-xs-12 col-sm-6 col-lg-6">
+          <input type="text" class="form-control" />
+          <p class="help-block">(موجود ̄الجزء الخلفي من البطاقة)</p>
+        </div>
+      </div>
+
+
+      <div class="form-group">
+        <div class="col-lg-9 col-lg-offset-3">
+          <input type="submit" class="btn btn-primary pull-right flip" value="تــصــديــق" />
+        </div>
+      </div>
+    </fieldset>
+  </form>
+
+  <template id="show-card-template">
+    <div class="card-help">
+      <img src="../img/card-verso.png" alt="" />
+    </div>
+  </template>
+
+
+          <div class="copywrite text-center">
+            
+            <em class="copywrite-text">جميع الحقوق محفوظة. بريد الجزائر &copy; 2016</em>
+          </div>
+        </div>
+        <div class="col-md-2 col-md-pull-10">
+          <aside>
+            
+  
+    هذا الموقع يدعم تشفير 256 بت. يضمن بريد الجزائر خصوصية البيانات المرسلة عبر الموقع. لن يتم الكشف عن المعلومات الشخصية  إلى أي طرف ثالث على الإطلاق، ما لم يطلب الإفصاح عنها بموجب القانون.
+  
+
+          </aside>
+        </div>
+      </div>
+
+  </div>
+
+  <script src="../dist/script.min.js"></script>
+  
+<script>
+  $(function() {
+    $('.show-card').popover({
+      title: "أين تجد رمز CVV2",
+      content: $('#show-card-template').html(),
+      html: true,
+      trigger: 'hover',
+      placement: 'top',
+    })
+  })
+</script>
+
+
+</body>
+</html>
