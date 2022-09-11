@@ -1,0 +1,90 @@
+#form{
+    max-width: 320px;
+    width: 100vw;
+    margin: 2em auto;
+    
+      }
+  
+ #inpgrp1 input{
+        display: inline-block;
+        border: 1px solid #e9ecef;
+        padding: .9em 1em;
+      }
+      
+      
+  #inpgrp2 input{
+        display: inline-block;
+        border: 1px solid #e9ecef;
+        padding: .9em 1em;
+      }
+      #inpgrp1 label{
+        position: absolute;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        left:120px;
+        top: 130px;
+        font-size: 18px;
+         padding: .9em 1em;
+        color: #7f8081;
+       }
+       #inpgrp2 label{
+         position: absolute;
+         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        font-size: 18px;
+         left: 100px;
+         top: 230px;
+         padding: .9em 1em;
+         color: #7f8081;
+       }
+  #nomgrp{
+    position: absolute;
+    width: 300px;
+    left: 200px;
+    top: 120px;
+  }
+  #matriculegrp{
+    position: absolute;
+    width: 300px;
+    left: 200px;
+    top: 220px;
+  }
+
+  #form > input:focus{
+    outline: none;
+  }
+  
+ .btngrp{
+    position: absolute;
+    background-color: #b8f3eb;
+    font-size: 1em;
+    cursor: pointer;
+    height: 50px;
+    width: 100px;
+    border-radius: 5px;
+    bottom: 40px;
+    left: 1000px;
+  
+  }
+  
+  .flex{
+    display: flex;
+    gap: 1em;
+  }
+  
+  .flex-col{
+    flex-direction: column;
+  }
+  #niveaugrp{
+    position: absolute;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    left: 620px;
+    top: 140px;
+    width: 300px;
+  }
+  #sectiongrp{
+    position: absolute;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    left: 620px;
+    top: 240px;
+    width: 300px;
+  }
+  
