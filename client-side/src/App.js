@@ -1,4 +1,4 @@
-import Table  from "./components/admin/gestion/table";
+import List  from "./components/admin/gestion/list";
 import './App.css';
 import { BrowserRouter as Router , Switch ,Route } from "react-router-dom";
 import Login from "./components/login.js";
@@ -14,7 +14,7 @@ function App() {
     <Login />
     </Route>
     <Route exact path="/table">
-    <Table />
+    <List />
     </Route>
     <Route exact path="/rendezvous">
     <RendezVous />
