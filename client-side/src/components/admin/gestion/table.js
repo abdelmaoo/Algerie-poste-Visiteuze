@@ -63,7 +63,7 @@ function Table() {
     });
 
     return (
-        <div className='font-poste'>
+        <div className='font-poste mt-10'>
             <div id='frame'>
                 <button className="bg-bleu text-white rounded-md px-8 py-2 font-poste" id="open-btn" >
                     Ajouter un utilisateur
@@ -142,11 +142,11 @@ function Table() {
                                         </div>
 
 
-                                        {/* <div className='py-4'>
-                                                    <label htmlFor="country" className="block text-sm font-medium text-gray-700">
+                                        <div className='py-4'>
+                                                    <label htmlFor="role" className="block text-lg font-bold text-gray-700">
                                                         Role
                                                     </label>
-                                                    <select
+                                                    {/* <select
                                                         id="role"
                                                         name="role"
                                                         isMulti
@@ -157,9 +157,9 @@ function Table() {
                                                     >
                                                         <option>Receptioniste</option>
                                                         <option>Administrateur</option>
-                                                    </select>
-                                                </div> */}
-                                        <Select options={roleoptions} onChange={selectRole} id="role" placeholder='Role' required />
+                                                    </select> */}
+                                                    <Select isMulti options={roleoptions} onChange={selectRole} id="role" placeholder='Role' required />
+                                                </div>
                                     </form>
                                 </div>
                                 <div className="bg-gris px-4 py-3 text-right sm:px-6">
