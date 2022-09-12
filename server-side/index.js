@@ -2,15 +2,15 @@ const express = require("express");
 const app = express();
 const mysql = require("mysql");
 const cors = require("cors");
-var bodyParser = require('body-parser')
-
-
+var bp = require('body-parser')
 
 app.use(cors({
     origin: ["http://localhost:3000"],
     methods: ["GET", "POST","DELETE","PUT"],
       credentials: true,}));
   app.use(express.json());
+  app.use(bp.urlencoded({ extended: false }))
+  app.use(bp.json())
 
 
   const db = mysql.createConnection({
@@ -57,4 +57,18 @@ app.post("/l", (req, res) => {
           }
             }
     );
+          })
+
+// add user
+          app.post("/users",(req,res) =>{
+            const nom =req.body.name;
+            const prenom = req.body.surname;
+            const username = req.body.username;
+            const password = req.body.password;
+            const role = req.body.role;
+            const insert_grp = "INSERT INTO auth (username,password,nom,prenom,role) VALUES (?,?,?,?,?)"
+            db.query(insert_grp,[username,password,nom,prenom,role],(error,result)=>{
+              res.send(result);
+              console.log("baaaaaack", nom)
+          });
           })
