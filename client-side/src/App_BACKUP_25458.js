@@ -1,4 +1,8 @@
+<<<<<<< HEAD
+import Table from './components/admin/gestion/table';
+=======
 import Table  from "./components/admin/gestion/table";
+>>>>>>> add-RDVP
 import './App.css';
 import { BrowserRouter as Router , Switch ,Route } from "react-router-dom";
 import Login from "./components/login.js";
@@ -8,6 +12,17 @@ function App() {
   return (
    <Router>
 <div className="App">
+<<<<<<< HEAD
+  
+  
+
+
+    {/* <Login /> */}
+    <Table/>
+
+  
+    
+=======
 <div className="content">
   <Switch>
   <Route exact path="/">
@@ -21,6 +36,7 @@ function App() {
     </Route>
 
     </Switch>
+>>>>>>> add-RDVP
     </div>
     </div>
     </Router>

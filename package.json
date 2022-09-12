@@ -4,7 +4,9 @@
     "react-router-dom": "^6.3.0",
     "react-scripts": "^5.0.1",
     "react-select": "^5.4.0",
-    "web-vitals": "^3.0.1"
+    "web-vitals": "^3.0.1",
+    "axios": "^0.27.2",
+    "react-router": "^5.3.3",
   },
   "devDependencies": {
     "nodemon": "^2.0.19"

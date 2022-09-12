@@ -77,9 +77,7 @@ const Login = () => {
                           <input placeholder="entrez votre nom d'utilisateur" onChange={(e) => {
                             setUsername(e.target.value);}} name="nom d'utilisateur" type="text"/>
                       </div>
-                      <div>
-                
-              </div>
+                    
                       <div className="input-container name">
                           
                           <input placeholder="entrez votre mot de passe" id="password"  onChange={(e) => {
