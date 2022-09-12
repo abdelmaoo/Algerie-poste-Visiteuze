@@ -2,12 +2,16 @@ const express = require("express");
 const app = express();
 const mysql = require("mysql");
 const cors = require("cors");
+var bodyParser = require('body-parser')
+
+
 
 app.use(cors({
     origin: ["http://localhost:3000"],
     methods: ["GET", "POST","DELETE","PUT"],
       credentials: true,}));
   app.use(express.json());
+
 
   const db = mysql.createConnection({
     user: "root",
@@ -17,9 +21,7 @@ app.use(cors({
     port: 3325
   });
   
-  
-  
-  
+
   db.connect((err) => {
       if (!err)
           console.log('DB connection succeded.');
@@ -30,3 +32,29 @@ app.use(cors({
   app.listen(3001, () => {
       console.log("running server");
   });
+
+
+
+  //authentification
+app.post("/l", (req, res) => {
+    const username = req.body.username;
+    const password = req.body.password;
+    const role = req.body.role;
+    console.log(username)
+    console.log("baack")
+    db.query(
+      "SELECT * FROM auth WHERE username = ? AND password = ?",
+      [username,password],
+      (err, result) => {
+        if(err){
+        res.send({err:err})}
+  
+         if (result) {
+            res.send(result);
+            console.log(result)
+          } else {
+            res.send({ message: "Wrong username/password combination!" });
+          }
+            }
+    );
+          })
