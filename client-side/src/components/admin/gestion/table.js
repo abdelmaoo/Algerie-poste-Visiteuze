@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Select from 'react-select';
 import Axios from 'axios';
+
 function Table() {
 
     const [name, setName] = useState('');
@@ -37,6 +38,12 @@ function Table() {
         }).then((response) => {
             console.log(role)
             console.log(response);
+            <script>
+            
+            function myFunction() {
+                alert("Ajouté avec succés !")
+            }
+            </script>
         }).catch((err) => console.log(err));
 
     };
@@ -159,7 +166,7 @@ function Table() {
                                                         <option>Administrateur</option>
                                                     </select>
                                                 </div> */}
-                                        <Select options={roleoptions} onChange={selectRole} id="role" placeholder='Role' required />
+                                        <Select isMulti options={roleoptions} onChange={selectRole} id="role" placeholder='Role' required />
                                     </form>
                                 </div>
                                 <div className="bg-gris px-4 py-3 text-right sm:px-6">
