@@ -4,7 +4,17 @@ module.exports = {
     "./src/**/*.{js,jsx,ts,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+			fontFamily: {
+				'poste': ['poste', 'sans-serif']
+			},
+      colors: {
+        bleu: '#1f589c',
+        jaune: '#f4c922',
+        gris: '#eee'
+  
+      },
+		}
   },
   plugins: [],
 }
