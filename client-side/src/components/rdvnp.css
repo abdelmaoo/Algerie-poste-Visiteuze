@@ -1,0 +1,76 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins',sans-serif;
+}
+
+.body{
+  background-color: #EEEEEE;
+  padding: 100px 200px;
+  border-radius: 5px;
+  position: absolute;
+   margin-left: 500px;
+   margin-top: 50px;
+}
+
+
+.body .input-box{
+  font-weight: 500;
+  margin-bottom: 15px;
+  width: calc(100% / 2 - 20px);
+ 
+}
+.body .input-box input{
+  height: 45px;
+  width: 500px;
+  outline: none;
+  font-size: 16px;
+  border-radius: 5px;
+  padding-left: 15px;
+  border: 1px solid #EEEEEE;
+  border-bottom-width: 2px;
+  transition: all 0.3s ease;
+}
+.body .input-box input:focus,
+.body .input-box input:valid{
+  border-color: #1f589c;
+}
+
+ form .button{
+   height: 45px;
+   margin: 35px 0
+ }
+ form .button input{
+  margin-top: 40px;
+  display: block;
+  width: 200px;
+  background: #1f589c;
+  color: white;
+  font-weight: 700;
+  border: none;
+  padding: 1rem;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+ }
+ 
+ form .button input:hover{
+  background: white;
+  color: #1f589c;
+ 
+  cursor: pointer;
+  transition: all 0.2s ease-in;
+  }
+ @media(max-width: 584px){
+ .body{
+  max-width: 100%;
+}
+form .body .input-box{
+    margin-bottom: 15px;
+    width: 100%;
+  }
+  
+  
+}

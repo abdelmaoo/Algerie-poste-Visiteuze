@@ -26,9 +26,7 @@ import { Link, Redirect,useHistory } from "react-router-dom";
                       <div className="input-container name">
                           <input placeholder="entrez votre nom d'utilisateur" name="nom d'utilisateur" type="text"/>
                       </div>
-                      <div>
-                
-              </div>
+                    
                       <div className="input-container name">
                           
                           <input placeholder="entrez votre mot de passe" id="password" name="password" type="password" />
