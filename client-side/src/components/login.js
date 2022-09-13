@@ -1,4 +1,5 @@
-import React, {useEffect, useState, useRef } from 'react';import './login.css'
+import React, {useEffect, useState, useRef } from 'react';
+import './login.css'
 import Img1 from "./images/logImg.png";
 import Img2 from "./images/poste.png";
 import { Link, Redirect,useHistory } from "react-router-dom";
@@ -75,13 +76,13 @@ const Login = () => {
                       </section>
                       <div className="input-container name">
                           <input placeholder="entrez votre nom d'utilisateur" onChange={(e) => {
-                            setUsername(e.target.value);}} name="nom d'utilisateur" type="text"/>
+                            setUsername(e.target.value);}} name="nom d'utilisateur" className='input' type="text"/>
                       </div>
                     
                       <div className="input-container name">
                           
                           <input placeholder="entrez votre mot de passe" id="password"  onChange={(e) => {
-                            setPassword(e.target.value);}} name="password" type="password" />
+                            setPassword(e.target.value);}} name="password" className='input' type="password" />
                           <i class="far fa-eye-slash"></i>
                       </div>
                       <div>
