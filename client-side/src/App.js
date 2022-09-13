@@ -17,7 +17,7 @@ function App() {
     <Route exact path="/table">
     <List />
     </Route>
-    <Route exact path="/rendezvous">
+    <Route exact path="/rdv">
     <RendezVous />
     </Route>
 

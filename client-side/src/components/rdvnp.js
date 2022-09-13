@@ -103,11 +103,11 @@ function RendezVous() {
         },
     ]
 
-    const api2 = "http://localhost:3001/users";
+    const api3 = "http://localhost:3001/rdv";
     console.log(name, direction, number,date,heure_entree,heure_sortie,title, motif, validation);
     
     const addRVn = () => {
-        Axios.post(api2, {
+        Axios.post(api3, {
             name: name,
             direction: direction,
             number: number,
@@ -146,7 +146,7 @@ function RendezVous() {
     });
 
     return (
-        <div className='font-poste'>
+        <div className='font-poste mt-10'>
             <div id='frame'>
                 <button className="bg-bleu text-white rounded-md px-8 py-2 font-poste" id="open-btn" >
                     Ajouter un rendez-vous
@@ -154,18 +154,18 @@ function RendezVous() {
             </div>
 
             <div className="fixed hidden inset-0 bg-gray-600 bg-opacity-50  overflow-y-auto h-full items-center justify-center" id="my-modal">
-                <div className="relative p-5 sm:mx-12 md:mx-8  mx-auto lg:w-1/2 w-full shadow-lg rounded-md bg-gris p-12" >
-                    <div className="mt-10 sm:mt-0 px-8">
+                <div className="relative p-2 sm:mx-12 md:mx-8  mx-auto lg:w-1/2 w-full shadow-lg rounded-md bg-gris " >
+                    <div className="mt-5 sm:mt-0 px-8">
                         <div className="p-4 mb-2 sm:px-0 bg-jaune rounded-full mx-24">
-                            <h3 className="text-3xl font-poste font-bold text-bleu">Ajouter un rendez-vous</h3>
+                            <h3 className="text-xl font-poste font-bold text-bleu">Ajouter un rendez-vous</h3>
                         </div>
 
-                        <div className="mt-5 md:mt-0">
+                        <div className="mt-4 md:mt-0">
                             <div className="overflow-hidden border border-gray-700 sm:rounded-md ">
                                 <div className=" px-4 py-5 sm:p-6">
                                     <form method='post' action='#'>
-                                        <div className='py-4'>
-                                            <label htmlFor="name" className="block text-lg font-bold text-gray-700">
+                                        <div className='py-2'>
+                                            <label htmlFor="name" className="block text-base font-bold text-gray-700">
                                                 Nom
                                             </label>
                                             <input
@@ -175,13 +175,18 @@ function RendezVous() {
                                                 required
                                                 onChange={(e) => setName(e.target.value)}
                                                 autoComplete="off"
-                                                className="mt-1 block w-full rounded-md border border-gray-300 h-8 p-4"
+                                                className="mt-1 block w-full rounded-md border border-gray-300 h-6 p-4"
                                             />
                                         </div>
 
-                                        <Select options={directionoptions} onChange={selectDirection} id="direction" placeholder='Direction' required />
+                                        <div className='py-2'>
+                                            <label htmlFor="direction" className="block text-base font-bold text-gray-700">
+                                                    Direction
+                                            </label>
+                                            <Select options={directionoptions} onChange={selectDirection} id="direction" placeholder='Direction' required />
+                                        </div>
                                          
-                                        <div className='py-4'>
+                                        <div className='py-2'>
                                             <label htmlFor="number" className="block text-lg font-bold text-gray-700">
                                                Numero carte d'identitie
                                             </label>
@@ -196,7 +201,7 @@ function RendezVous() {
                                             />
                                         </div>
                                           
-                                        <div className='py-4'>
+                                        <div className='py-2'>
                                             <label htmlFor="date" className="block text-lg font-bold text-gray-700">
                                                 Date
                                             </label>
@@ -211,7 +216,7 @@ function RendezVous() {
                                             />
                                         </div>
 
-                                        <div className='py-4'>
+                                        <div className='py-2'>
                                             <label htmlFor="heure_entree" className="block text-lg font-bold text-gray-700">
                                                Heure d'entree
                                             </label>
@@ -226,7 +231,7 @@ function RendezVous() {
                                             />
                                         </div>
 
-                                        <div className='py-4'>
+                                        <div className='py-2'>
                                             <label htmlFor="heure_entree" className="block text-lg font-bold text-gray-700">
                                                Heure de sortie
                                             </label>
@@ -241,7 +246,7 @@ function RendezVous() {
                                             />
                                         </div>
 
-                                        <div className='py-4'>
+                                        <div className='py-2'>
                                             <label htmlFor="title" className="block text-lg font-bold text-gray-700">
                                                 Titre
                                             </label>
@@ -256,7 +261,7 @@ function RendezVous() {
                                             />
                                         </div>
 
-                                        <div className='py-4'>
+                                        <div className='py-2'>
                                             <label htmlFor="motif" className="block text-lg font-bold text-gray-700">
                                                 Motif
                                             </label>
@@ -275,7 +280,7 @@ function RendezVous() {
                                       
                                     </form>
                                 </div>
-                                <div className="bg-gris px-4 py-3 text-right sm:px-6">
+                                <div className="bg-gris px-4 py-2 text-right sm:px-6">
                                     <button
                                         onClick={addRVn}
                                         className="inline-flex justify-center rounded-md bg-bleu py-2 px-4 text-lg font-bold text-white "
