@@ -73,3 +73,28 @@ app.post("/l", (req, res) => {
               console.log("baaaaaack", nom)
           });
           })
+
+// add RVN
+app.post("/rdv",(req,res) =>{
+  const name =req.body.name;
+  const direction = req.body.direction;
+  const number = req.body.number;
+  const date = req.body.date;
+  const heure_entree = req.body.heure_entree;
+  const heure_sortie = req.body.heure_sortie;
+  const title = req.body.title;
+  const motif = req.body.motif;
+  const validation = 0;
+  const type_rendezvous = req.body.type_rendezvous;
+  const auteur = req.body.auteur;
+  const typee = req.body.typee;
+  if (heure_entree > heure_sortie) {
+    console.log(heure_entree > heure_sortie)
+  }else{
+  const insert_grp = "INSERT INTO rendezvous (nom,numero_carte,direction,date,heure_entree,heure_sortie,titre,motif,validation,type_rendezvous,auteur) VALUES (?,?,?,?,?,?,?,?,?,?,?)"
+  db.query(insert_grp,[name,number,direction,date,heure_entree,heure_sortie,title,motif,validation,type_rendezvous,auteur],(error,result)=>{
+    res.send(result);
+    console.log("baaaaaack",name,number,direction,date,heure_entree,heure_sortie,title,motif,validation,type_rendezvous,auteur)
+    console.log(heure_entree > heure_sortie)
+});}
+})

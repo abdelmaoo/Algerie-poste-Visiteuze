@@ -12,11 +12,14 @@ function RendezVous() {
     const [title, setTitle] = useState('');
     const [motif, setMotif] = useState('');
     const [validation, setValidation] = useState('');
-
+    const user = JSON.parse(localStorage.getItem("user") || '{}');
+    const auteur = user.username;
+    const role = user.role;
     const selectDirection = (e) => {
         setDirection(Array.isArray(e) ? e.map(x => x.label) : [])
     }
-
+    let typee = 0;
+    let type_rendezvous = "";
     const directionoptions = [
         {
             value: '1',
@@ -105,7 +108,13 @@ function RendezVous() {
 
     const api3 = "http://localhost:3001/rdv";
     console.log(name, direction, number,date,heure_entree,heure_sortie,title, motif, validation);
-    
+    console.log(role, role == "receptioniste");
+    if (role == "administrateur") {
+        type_rendezvous="RVP";
+    } else if(role == "receptioniste"){
+        type_rendezvous="RVNP";
+    }
+
     const addRVn = () => {
         Axios.post(api3, {
             name: name,
@@ -117,11 +126,26 @@ function RendezVous() {
             title: title,
             motif: motif,
             validation: validation,
+            auteur: auteur,
+            type_rendezvous: type_rendezvous,
         }).then((response) => {
-            
+            console.log(heure_entree > heure_sortie)
+            if (heure_entree > heure_sortie) {
+                <script>
+            function myFunction() {
+            alert("Heure d'entrée doit etre inférieure a l'heure de sortie !")
+              }
+        </script>
+            }else{
+                <script>
+                function myFunction() {
+                alert("Ajouté avec succés !")
+            }
+            </script> 
+            }
             console.log(response);
+            console.log(user, auteur)
         }).catch((err) => console.log(err));
-
     };
 
     useEffect(() => {
@@ -183,7 +207,7 @@ function RendezVous() {
                                             <label htmlFor="direction" className="block text-base font-bold text-gray-700">
                                                     Direction
                                             </label>
-                                            <Select options={directionoptions} onChange={selectDirection} id="direction" placeholder='Direction' required />
+                                            <Select isMulti options={directionoptions} onChange={selectDirection} id="direction" placeholder='Direction' required />
                                         </div>
                                          
                                         <div className='py-2'>
