@@ -3,57 +3,49 @@ import './login.css'
 import Img1 from "./images/logImg.png";
 import Img2 from "./images/poste.png";
 import { Link, Redirect,useHistory } from "react-router-dom";
+import Axios from "axios"; 
 import axios from "axios"; 
 import {useNavigate, useRoutes} from 'react-router-dom'; 
 
 
-
-
 const Login = () => {
-    axios.defaults.withCredentials = true;
-
-    const [username, setUsername] = useState("");
-    const [password, setPassword] = useState("");
-    //const [role, setRole] = useState("");
-    const api1 = 'http://localhost:3001/l';
-/*
-    const navigate = useNavigate();   
-    console.log('kjfrkjfeko')
-
-    useEffect(() => {
-        const user = JSON.parse(localStorage.getItem('user'));
-        console.log(user);
-        if(user){
-        if (user.role==="administrateur"){
-          navigate('/admin', { replace: true })
-        }else if(user.role==="receptioniste"){
-          navigate('/receptioniste', { replace: true })
-        }
-      }else{
-        
-        navigate('/', { replace: true });
-      }
-      },[role])
-
-      */
-    const login = () => {
-        axios.post(api1, {
-            params: {
-                username: username,
-                password: password,
-            }
-        }).then(function(response) {
-          console.log(response);
-          console.log(username)
-          localStorage.setItem('user',JSON.stringify(response.data[0])) ;
-          //setRole(response.data[0].role);             
-        }).catch(function (error) {
-            console.log(error);
-        });
 
 
-  }; 
-      
+  Axios.defaults.withCredentials = true;
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [role, setRole] = useState("");
+  let navigate = useHistory();
+
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem("user") || '{}');
+    console.log(user);
+    if(user){
+    if (user.role==="administrateur"){
+      navigate('/rendezvous')
+      console.log(user)
+      console.log(user.role)
+    }else if(user.role==="receptioniste"){
+      navigate('/table')
+      console.log(user.role)
+
+    }
+  }else{
+    console.log("something went wrong", role)
+    navigate('/');
+  }
+  },[role])
+  
+  const login = () => {
+      Axios.post("http://localhost:3001/l", {
+        username: username,
+        password: password,
+      }).then((response) => {
+        console.log(response);
+        localStorage.setItem('user',JSON.stringify(response.data[0])) ;
+        setRole(response.data[0].role);             
+      })
+    }
 
       return (
          
@@ -83,18 +75,19 @@ const Login = () => {
                           
                           <input placeholder="entrez votre mot de passe" id="password"  onChange={(e) => {
                             setPassword(e.target.value);}} name="password" className='input' type="password" />
+                            
                           <i class="far fa-eye-slash"></i>
                       </div>
                       <div>
               
               </div>
-                      <button  className="login-btn" onClick={login} type="button">Se connecter</button>
+                      <button  className="login-btn" onClick={()=>{
+                login()
+                }} type="button">Se connecter</button>
                   </form>
               </div>
           </div>
       )
       }
-
-
 
 export default Login;
