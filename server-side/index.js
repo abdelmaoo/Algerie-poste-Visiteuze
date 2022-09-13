@@ -52,6 +52,7 @@ app.post("/l", (req, res) => {
          if (result) {
             res.send(result);
             console.log(result)
+            console.log("baaaack", username)
           } else {
             res.send({ message: "Wrong username/password combination!" });
           }
