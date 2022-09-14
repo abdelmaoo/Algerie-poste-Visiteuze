@@ -2,6 +2,7 @@ import { Fragment } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { Bars3Icon, ArrowLeftOnRectangleIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import Logo from "../images/poste.png";
+import {useNavigate} from 'react-router-dom'; 
 
 const navigation = [
   { name: 'Dashboard', href: '/', current: true },
@@ -9,11 +10,19 @@ const navigation = [
   { name: 'Employes', href: '/table', current: false }
 ]
 
+
+
+
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
 export default function NavBar() {
+  let navigate = useNavigate();
+  function logout() {
+    JSON.parse(localStorage.clear() || '{}')
+    navigate('/');
+    }
   return (
     <Disclosure as="nav" className="bg-white">
       {({ open }) => (
@@ -65,6 +74,9 @@ export default function NavBar() {
               <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
                 <button
                   type="button"
+                  onClick={()=>{
+                    logout()
+                    }}
                   className="rounded-full bg-bleu p-1 text-gris hover:text-jaune focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-white"
                 >
                   <span className="sr-only">Se deconnecter</span>
