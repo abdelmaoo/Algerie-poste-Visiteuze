@@ -15,7 +15,7 @@ const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [role, setRole] = useState("");
-  let navigate = useHistory();
+  let navigate = useNavigate();
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("user") || '{}');

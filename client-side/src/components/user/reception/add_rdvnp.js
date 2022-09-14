@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Select from 'react-select';
 import Axios from 'axios';
-function RendezVous() {
+function AddRdvNp() {
 
     const [name, setName] = useState('');
     const [direction, setDirection] = useState([]);
@@ -131,8 +131,11 @@ function RendezVous() {
 
         let frame = document.getElementById("frame");
 
+        let modal_table = document.getElementById("modal_table");
+
         btn.onclick = function () {
             modal.style.display = "flex";
+            modal_table.style.display = "none"
             frame.classList.add('blur');
 
         }
@@ -140,6 +143,7 @@ function RendezVous() {
         window.onclick = function (event) {
             if (event.target == modal) {
                 modal.style.display = "none";
+                modal_table.style.display = "block";
                 frame.classList.remove('blur')
             }
         }
@@ -301,4 +305,4 @@ function RendezVous() {
 
     );
 }
-export default RendezVous;
+export default AddRdvNp;
