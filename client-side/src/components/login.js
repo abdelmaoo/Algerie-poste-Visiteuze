@@ -15,7 +15,7 @@ const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [role, setRole] = useState("");
-<<<<<<< HEAD
+
   let history = useNavigate();
 
   const user = JSON.parse(localStorage.getItem("user") || '{}');
@@ -38,9 +38,6 @@ const Login = () => {
 //     }
 // }
 
-=======
-  let navigate = useNavigate();
->>>>>>> add-rdv-tabs
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("user") || '{}');

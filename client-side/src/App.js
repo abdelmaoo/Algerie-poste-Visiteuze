@@ -12,11 +12,7 @@ function App() {
 <div className="content">
   <Routes>
     <Route exact path="/" element={<Login/>} />
-<<<<<<< HEAD
-    <Route path="/rdv" element={<RendezVous />} />
-=======
     <Route path="/rdv" element={<Recept />} />
->>>>>>> add-rdv-tabs
     <Route path="/table" element={<List />} />
     </Routes>
     </div>
