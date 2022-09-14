@@ -2,7 +2,7 @@ import React, {useEffect, useState, useRef } from 'react';
 import './login.css'
 import Img1 from "./images/logImg.png";
 import Img2 from "./images/poste.png";
-import { Link, Redirect,useHistory } from "react-router-dom";
+import { Link, Redirect,useHistory, useLocation, BrowserRouter } from "react-router-dom";
 import Axios from "axios"; 
 import axios from "axios"; 
 import {useNavigate, useRoutes} from 'react-router-dom'; 
@@ -15,25 +15,46 @@ const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [role, setRole] = useState("");
-  let navigate = useHistory();
+  let history = useNavigate();
+
+  const user = JSON.parse(localStorage.getItem("user") || '{}');
+
+
+//   function haya() {
+//     if(user){
+//       if (user.role==="administrateur"){
+//         history("/rdv")
+//         console.log(user)
+//         console.log(user.role)
+//       }else if(user.role==="receptioniste"){
+//         history("/rdv")
+//         console.log(user.role)
+  
+//       }
+//     }else{
+//       console.log("something went wrong", role)
+//       history("/");
+//     }
+// }
+
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("user") || '{}');
     console.log(user);
     if(user){
-    if (user.role==="administrateur"){
-      navigate('/rendezvous')
-      console.log(user)
-      console.log(user.role)
-    }else if(user.role==="receptioniste"){
-      navigate('/table')
-      console.log(user.role)
-
+      console.log("first if")
+      if (user.role==="administrateur"){
+        console.log("admin",user)
+        history('/table')
+        console.log(user.role)
+      }else if(user.role==="receptioniste"){
+        console.log("recep",user.role)
+        history('/rdv')
+      }
+    }else{
+      console.log("something went wrong", role)
+      history('/');
     }
-  }else{
-    console.log("something went wrong", role)
-    navigate('/');
-  }
   },[role])
   
   const login = () => {
