@@ -3,7 +3,6 @@ import Recept  from "./components/user/reception/reception";
 import './App.css';
 import { BrowserRouter as Router , Switch ,Route , Routes} from "react-router-dom";
 import Login from "./components/login.js";
-import RendezVous from "./components/user/rdvnp";
 import Dashboard from "./components/admin/gestion/dashboard";
 
 
