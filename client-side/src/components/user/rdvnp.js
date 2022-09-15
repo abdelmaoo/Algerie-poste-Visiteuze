@@ -185,26 +185,16 @@ function AddRdvNp() {
                 <div className="relative p-2 sm:mx-12 md:mx-8  mx-auto lg:w-1/2 w-full shadow-lg rounded-md bg-gris " >
                     <div className="mt-5 sm:mt-0 px-8">
                         <div className="p-4 mb-2 sm:px-0 bg-jaune rounded-full mx-24">
-<<<<<<< HEAD:client-side/src/components/user/rdvnp.js
-                            <h3 className="text-3xl font-poste font-bold text-bleu">Ajouter rendez-vous</h3>
-=======
                             <h3 className="text-xl font-poste font-bold text-bleu">Ajouter un rendez-vous</h3>
->>>>>>> 87fe2b1fb511dcc0a464519f23dbd8c352a0532f:client-side/src/components/user/reception/add_rdvnp.js
                         </div>
 
                         <div className="mt-4 md:mt-0">
                             <div className="overflow-hidden border border-gray-700 sm:rounded-md ">
                                 <div className=" px-4 py-5 sm:p-6">
                                     <form method='post' action='#'>
-<<<<<<< HEAD:client-side/src/components/user/rdvnp.js
-                                        <div className='py-4'>
-                                            <label htmlFor="name" className="block text-lg font-bold text-gray-700">
-                                                Nom et prenom
-=======
                                         <div className='py-2'>
                                             <label htmlFor="name" className="block text-base font-bold text-gray-700">
                                                 Nom
->>>>>>> 87fe2b1fb511dcc0a464519f23dbd8c352a0532f:client-side/src/components/user/reception/add_rdvnp.js
                                             </label>
                                             <input
                                                 placeholder='entrez le nom et prenom'

@@ -16,6 +16,7 @@ function App() {
     <Route exact path="/" element={<Login/>} />
     <Route path="/rdv" element={<Recept />} />
     <Route path="/table" element={<List />} />
+    <Route path="/dashboard" element={<Dashboard />} />
     </Routes>
     </div>
     </div>
