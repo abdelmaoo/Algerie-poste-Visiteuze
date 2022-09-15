@@ -4,6 +4,7 @@ import { Bars3Icon, ArrowLeftOnRectangleIcon, XMarkIcon } from '@heroicons/react
 import Logo from "../images/poste.png";
 import { useNavigate } from 'react-router-dom';
 
+
 let navigation = [
   { name: 'Dashboard', href: '/dashboard', current: false },
   { name: 'Rendez-vous', href: '/rdv', current: false },
@@ -18,6 +19,7 @@ function classNames(...classes) {
 }
 
 export default function NavBar() {
+  
   let navigate = useNavigate();
   function logout() {
     JSON.parse(localStorage.clear() || '{}')

@@ -5,7 +5,13 @@ import Logo from "../images/poste.png";
 import { useNavigate } from 'react-router-dom';
 
 
+  const navigation = [
+    { name: 'Dashboard', href: '/', current: true },
+    { name: 'Rendez-vous', href: '/rdv', current: false },
+    { name: 'Employes', href: '/table', current: false }
+  ]
 function classNames(...classes) {
+
   return classes.filter(Boolean).join(' ')
 }
 

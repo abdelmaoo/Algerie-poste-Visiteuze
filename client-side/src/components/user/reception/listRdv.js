@@ -1,11 +1,36 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Tab } from '@headlessui/react'
+import axios from "axios"; 
+import { Await } from 'react-router';
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
 export default function ListRdv() {
+//  var listedata = JSON.stringify(user || null)
+    const [infos, setInfos] = useState([]);
+    const user = JSON.parse(localStorage.getItem('user'));
+    const id = user.id;
+    const apiget5 = "http://localhost:3001/get_rdv"
+    useEffect(() =>  {
+        const getInfos =  async () => {
+            const { data: res } = await axios.get(apiget5).then(res => res.data).then(res => console.log(res));
+            //const dataa = await getData(apiget5)
+            setInfos(res);
+        };
+        getInfos();
+        // console.log("heeyy kidayrin", axios.get(apiget5));
+        // let dataa = axios.get(apiget5).then(res => res.data).then(res => console.log(res));
+        console.log(infos)
+    }, []);
+
+{/* <script>
+   var listedata = <%- JSON.stringify(listerdv || null) %>
+</script> */}
+
+
+
   let rendezvous = [
     {
       id: 1,
@@ -35,70 +60,74 @@ export default function ListRdv() {
       auteur: " vdjkvd ",
       validation: 0
     },
-    {
-      id: 3,
-      nom: 'abdelmaoo3',
-      numero_carte: 333333333333,
-      direction: 'fre',
-      date: "2022-03-03",
-      heure_entree: "10:30",
-      heure_sortie: null,
-      titre: " cd ",
-      motif: " cdsdf ",
-      type_rendezvous: " vdcd ",
-      auteur: " vdjkvd ",
-      validation: 1
-    },
-    {
-      id: 4,
-      nom: 'abdelmaoo4',
-      numero_carte: 444444444444444444,
-      direction: 'fre',
-      date: "2022-04-04",
-      heure_entree: "10:30",
-      heure_sortie: null,
-      titre: " cd ",
-      motif: " cdsdf ",
-      type_rendezvous: " vdcd ",
-      auteur: " vdjkvd ",
-      validation: 1
-    },
-    {
-      id: 5,
-      nom: 'abdelmaoo5',
-      numero_carte: 555555555555555,
-      direction: 'fre',
-      date: "2022-05-05",
-      heure_entree: "10:30",
-      heure_sortie: "11:30",
-      titre: " cd ",
-      motif: " cdsdf ",
-      type_rendezvous: " vdcd ",
-      auteur: " vdjkvd ",
-      validation: 2
-    },
-    {
-      id: 6,
-      nom: 'abdelmaoo6',
-      numero_carte: 66666666666666,
-      direction: 'fre',
-      date: "2022-06-06",
-      heure_entree: "10:30",
-      heure_sortie: "11:30",
-      titre: " cd ",
-      motif: " cdsdf ",
-      type_rendezvous: " vdcd ",
-      auteur: " vdjkvd ",
-      validation: 2
-    },
+    // {
+    //   id: 3,
+    //   nom: 'abdelmaoo3',
+    //   numero_carte: 333333333333,
+    //   direction: 'fre',
+    //   date: "2022-03-03",
+    //   heure_entree: "10:30",
+    //   heure_sortie: null,
+    //   titre: " cd ",
+    //   motif: " cdsdf ",
+    //   type_rendezvous: " vdcd ",
+    //   auteur: " vdjkvd ",
+    //   validation: 1
+    // },
+    // {
+    //   id: 4,
+    //   nom: 'abdelmaoo4',
+    //   numero_carte: 444444444444444444,
+    //   direction: 'fre',
+    //   date: "2022-04-04",
+    //   heure_entree: "10:30",
+    //   heure_sortie: null,
+    //   titre: " cd ",
+    //   motif: " cdsdf ",
+    //   type_rendezvous: " vdcd ",
+    //   auteur: " vdjkvd ",
+    //   validation: 1
+    // },
+    // {
+    //   id: 5,
+    //   nom: 'abdelmaoo5',
+    //   numero_carte: 555555555555555,
+    //   direction: 'fre',
+    //   date: "2022-05-05",
+    //   heure_entree: "10:30",
+    //   heure_sortie: "11:30",
+    //   titre: " cd ",
+    //   motif: " cdsdf ",
+    //   type_rendezvous: " vdcd ",
+    //   auteur: " vdjkvd ",
+    //   validation: 2
+    // },
+    // {
+    //   id: 6,
+    //   nom: 'abdelmaoo6',
+    //   numero_carte: 66666666666666,
+    //   direction: 'fre',
+    //   date: "2022-06-06",
+    //   heure_entree: "10:30",
+    //   heure_sortie: "11:30",
+    //   titre: " cd ",
+    //   motif: " cdsdf ",
+    //   type_rendezvous: " vdcd ",
+    //   auteur: " vdjkvd ",
+    //   validation: 2
+    // },
   ]
 
+  //rendezvous = infos;
+  console.log(infos)
+  console.log("heeyyy", rendezvous)
+  console.log(rendezvous)
   let [rdvs] = useState({
-    "a venir": rendezvous.filter(rdv => rdv.validation === 0),
-    "en cours": rendezvous.filter(rdv => rdv.validation === 1),
-    "termines": rendezvous.filter(rdv => rdv.validation === 2),
+    "a venir": infos.filter(rdv => rdv.validation === 0),
+    "en cours": infos.filter(rdv => rdv.validation === 1),
+    "termines": infos.filter(rdv => rdv.validation === 2),
   })
-  console.log(rdvs)
+//  console.log(results)
 
   return (
     <div className="w-full max-w-4xl px-2 py-16 sm:px-0 mx-auto font-poste" id='modal_table'>
