@@ -11,7 +11,7 @@ function Table() {
     const [role, setRole] = useState([]);
 
     const selectRole = (e) => {
-        setRole(Array.isArray(e) ? e.map(x => x.label) : [])
+        setRole(e.label)
     }
 
     const roleoptions = [
@@ -39,8 +39,7 @@ function Table() {
             console.log(role)
             console.log(response);
             <script>
-            
-            function myFunction() {
+                function myFunction() {
                 alert("Ajouté avec succés !")
             }
             </script>
@@ -70,7 +69,7 @@ function Table() {
     });
 
     return (
-        <div className='font-poste mt-10'>
+        <div className='font-poste'>
             <div id='frame'>
                 <button className="bg-bleu text-white rounded-md px-8 py-2 font-poste" id="open-btn" >
                     Ajouter un utilisateur
@@ -147,13 +146,13 @@ function Table() {
                                                 className="mt-1 block w-full rounded-md border border-gray-300 h-8 p-4"
                                             />
                                         </div>
-                                        
 
-                                        <div className='py-4'>
-                                                    <label htmlFor="role" className="block text-lg font-bold text-gray-700">
+
+                                        {/* <div className='py-4'>
+                                                    <label htmlFor="country" className="block text-sm font-medium text-gray-700">
                                                         Role
                                                     </label>
-                                                    {/* <select
+                                                    <select
                                                         id="role"
                                                         name="role"
                                                         isMulti
@@ -164,9 +163,9 @@ function Table() {
                                                     >
                                                         <option>Receptioniste</option>
                                                         <option>Administrateur</option>
-                                                    </select> */}
-                                                    <Select isMulti options={roleoptions} onChange={selectRole} id="role" placeholder='Role' required />
-                                                </div>
+                                                    </select>
+                                                </div> */}
+                                        <Select options={roleoptions} onChange={selectRole} id="role" placeholder='Role' required />
                                     </form>
                                 </div>
                                 <div className="bg-gris px-4 py-3 text-right sm:px-6">

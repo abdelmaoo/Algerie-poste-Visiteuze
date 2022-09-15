@@ -17,7 +17,7 @@ app.use(cors({
     user: "root",
     host: "localhost", 
     password: "",
-    database: "gestion des visiteurs",
+    database: "poste",
     port: 3325
   });
   
@@ -98,3 +98,19 @@ app.post("/rdv",(req,res) =>{
     console.log(heure_entree > heure_sortie)
 });}
 })
+
+// Get RDVs
+app.get("/get_rdv", (req, res) => {
+  db.query("SELECT * FROM rendezvous", (err, result) => {
+    if (err) {
+      console.log(err);
+    } else {
+      res.send(result);
+      console.log(result);
+      console.log("ACCEPTmodddddddddd");
+      listerdv = result;
+
+    }
+  }); });
+
+  //"SELECT id,nom,direction,date,heure_entree,heure_sortie,tite,motif,validation,type_rendevous,auteur FROM rendezvous"

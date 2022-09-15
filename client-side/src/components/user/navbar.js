@@ -3,13 +3,14 @@ import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { Bars3Icon, ArrowLeftOnRectangleIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import Logo from "../images/poste.png";
 
-const navigation = [
-  { name: 'Dashboard', href: '/', current: true },
-  { name: 'Rendez-vous', href: '/rdv', current: false },
-  { name: 'Employes', href: '/table', current: false }
-]
 
+  const navigation = [
+    { name: 'Dashboard', href: '/', current: true },
+    { name: 'Rendez-vous', href: '/rdv', current: false },
+    { name: 'Employes', href: '/table', current: false }
+  ]
 function classNames(...classes) {
+
   return classes.filter(Boolean).join(' ')
 }
 

@@ -4,13 +4,6 @@ import { Bars3Icon, ArrowLeftOnRectangleIcon, XMarkIcon } from '@heroicons/react
 import Logo from "../images/poste.png";
 import {useNavigate} from 'react-router-dom'; 
 
-const navigation = [
-  { name: 'Dashboard', href: '/', current: true },
-  { name: 'Rendez-vous', href: '/rdv', current: false },
-  { name: 'Employes', href: '/table', current: false }
-]
-
-
 
 
 function classNames(...classes) {
@@ -18,6 +11,30 @@ function classNames(...classes) {
 }
 
 export default function NavBar() {
+  
+let path = window.location.pathname;
+function navigation() {
+  if (path=='/') {
+    const navigation = [
+      { name: 'Dashboard', href: '/', current: true },
+      { name: 'Rendez-vous', href: '/rdv', current: false },
+      { name: 'Employes', href: '/table', current: false }
+    ]
+  }else if(path=='/rdv'){
+    const navigation = [
+      { name: 'Dashboard', href: '/', current: false },
+      { name: 'Rendez-vous', href: '/rdv', current: true },
+      { name: 'Employes', href: '/table', current: false }
+    ]
+  }else{
+    const navigation = [
+      { name: 'Dashboard', href: '/', current: false },
+      { name: 'Rendez-vous', href: '/rdv', current: false },
+      { name: 'Employes', href: '/table', current: true }
+    ]
+  }  
+}
+
   let navigate = useNavigate();
   function logout() {
     JSON.parse(localStorage.clear() || '{}')
