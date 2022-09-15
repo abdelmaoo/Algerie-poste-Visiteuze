@@ -10,7 +10,7 @@ function List() {
             <NavBar />
             <Table />
             
-            <div className="w-full max-w-4xl px-2 py-16 sm:px-0 mx-auto font-poste" id='modal_table'>
+            <div className="w-full max-w-4xl px-2 py-16 sm:px-0 mx-auto font-poste" id='modal_list'>
                 
                 <div className='rounded-xl bg-white p-3 ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2'>
                     <div

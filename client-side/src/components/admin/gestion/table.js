@@ -55,8 +55,11 @@ function Table() {
 
         let frame = document.getElementById("frame");
 
+        let modal_list = document.getElementById("modal_list");
+
         btn.onclick = function () {
             modal.style.display = "flex";
+            modal_list.style.display = "none";
             frame.classList.add('blur');
 
         }
@@ -64,6 +67,7 @@ function Table() {
         window.onclick = function (event) {
             if (event.target == modal) {
                 modal.style.display = "none";
+                modal_list.style.display = "block";
                 frame.classList.remove('blur')
             }
         }
