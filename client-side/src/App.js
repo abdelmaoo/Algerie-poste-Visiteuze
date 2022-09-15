@@ -2,7 +2,9 @@ import List  from "./components/admin/gestion/list";
 import './App.css';
 import { BrowserRouter as Router , Switch ,Route } from "react-router-dom";
 import Login from "./components/login.js";
-import RendezVous from "./components/rdvnp";
+import RendezVous from "./components/user/rdvnp";
+import Dashboard from "./components/admin/gestion/dashboard";
+
 
 function App() {
   return (
@@ -16,8 +18,12 @@ function App() {
     <Route exact path="/table">
     <List />
     </Route>
-    <Route exact path="/rendezvous">
+    <Route exact path="/rdv">
+      
     <RendezVous />
+    </Route>
+    <Route exact path="/dashboard">
+    <Dashboard />
     </Route>
 
     </Switch>

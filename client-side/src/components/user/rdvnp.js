@@ -146,10 +146,10 @@ function RendezVous() {
     });
 
     return (
-        <div className='font-poste'>
+        <div className='font-poste mt-10'>
             <div id='frame'>
                 <button className="bg-bleu text-white rounded-md px-8 py-2 font-poste" id="open-btn" >
-                    Ajouter un rendez-vous
+                    Ajouter rendez-vous
                 </button>
             </div>
 
@@ -157,7 +157,7 @@ function RendezVous() {
                 <div className="relative p-5 sm:mx-12 md:mx-8  mx-auto lg:w-1/2 w-full shadow-lg rounded-md bg-gris p-12" >
                     <div className="mt-10 sm:mt-0 px-8">
                         <div className="p-4 mb-2 sm:px-0 bg-jaune rounded-full mx-24">
-                            <h3 className="text-3xl font-poste font-bold text-bleu">Ajouter un rendez-vous</h3>
+                            <h3 className="text-3xl font-poste font-bold text-bleu">Ajouter rendez-vous</h3>
                         </div>
 
                         <div className="mt-5 md:mt-0">
@@ -166,9 +166,10 @@ function RendezVous() {
                                     <form method='post' action='#'>
                                         <div className='py-4'>
                                             <label htmlFor="name" className="block text-lg font-bold text-gray-700">
-                                                Nom
+                                                Nom et prenom
                                             </label>
                                             <input
+                                                placeholder='entrez le nom et prenom'
                                                 type="text"
                                                 name="name"
                                                 id="name"
@@ -183,9 +184,10 @@ function RendezVous() {
                                          
                                         <div className='py-4'>
                                             <label htmlFor="number" className="block text-lg font-bold text-gray-700">
-                                               Numero carte d'identitie
+                                               Numero de la piece
                                             </label>
                                             <input
+                                                placeholder='entrez le numero de la piece'
                                                 type="text"
                                                 name="number"
                                                 id="number"
@@ -201,6 +203,7 @@ function RendezVous() {
                                                 Date
                                             </label>
                                             <input
+                                                placeholder='entrez la date'
                                                 type="date"
                                                 name="date"
                                                 id="date"
@@ -216,6 +219,7 @@ function RendezVous() {
                                                Heure d'entree
                                             </label>
                                             <input
+                                                placeholder='entrez heure entree'
                                                 type="time"
                                                 name="heure_entree"
                                                 id="heure_entree"
@@ -231,6 +235,7 @@ function RendezVous() {
                                                Heure de sortie
                                             </label>
                                             <input
+                                                placeholder='entrez heure sortie'
                                                 type="time"
                                                 name="heure_sortie"
                                                 id="heure_sortie"
@@ -246,6 +251,7 @@ function RendezVous() {
                                                 Titre
                                             </label>
                                             <input
+                                                placeholder='entrez le titre'
                                                 type="text"
                                                 name="title"
                                                 id="title"
@@ -261,6 +267,7 @@ function RendezVous() {
                                                 Motif
                                             </label>
                                             <textarea
+                                                
                                                 name="motif"
                                                 id="motif"
                                                 required
