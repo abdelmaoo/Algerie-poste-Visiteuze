@@ -4,14 +4,14 @@ import { Bars3Icon, ArrowLeftOnRectangleIcon, XMarkIcon } from '@heroicons/react
 import Logo from "../images/poste.png";
 import { useNavigate } from 'react-router-dom';
 
-const navigation = [
-  { name: 'Dashboard', href: '/dashboard', current: true },
+let navigation = [
+  { name: 'Dashboard', href: '/dashboard', current: false },
   { name: 'Rendez-vous', href: '/rdv', current: false },
   { name: 'Employes', href: '/table', current: false }
 ]
 
-
-
+let path = window.location.pathname;
+navigation.find(e => e.href==path).current = true
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
