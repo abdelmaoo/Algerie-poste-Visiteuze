@@ -10,9 +10,6 @@ function Table() {
     const [password, setPassword] = useState('');
     const [role, setRole] = useState([]);
 
-    const selectRole = (e) => {
-        setRole(e.label)
-    }
 
     const roleoptions = [
         {
@@ -26,7 +23,7 @@ function Table() {
     ]
 
     const api2 = "http://localhost:3001/users";
-    console.log(name, surname, username, password, role);
+    console.log(name, surname, username, password, role.label);
     
     const addUser = () => {
         Axios.post(api2, {
@@ -34,16 +31,24 @@ function Table() {
             surname: surname,
             username: username,
             password: password,
-            role: role,
+            role: role.label,
         }).then((response) => {
             console.log(role)
             console.log(response);
             <script>
-                function myFunction() {
+            
+            function myFunction() {
                 alert("Ajouté avec succés !")
             }
             </script>
         }).catch((err) => console.log(err));
+
+    };
+
+    const reset = () => {
+        const inputs = document.getElementsByClassName('formelem');
+        [...inputs].forEach(e => e.value = '' );
+        setRole([])
 
     };
 
@@ -73,7 +78,7 @@ function Table() {
     });
 
     return (
-        <div className='font-poste'>
+        <div className='font-poste mt-10'>
             <div id='frame'>
                 <button className="bg-bleu text-white rounded-md px-8 py-2 font-poste" id="open-btn" >
                     Ajouter un utilisateur
@@ -81,7 +86,7 @@ function Table() {
             </div>
 
             <div className="fixed hidden inset-0 bg-gray-600 bg-opacity-50  overflow-y-auto h-full items-center justify-center" id="my-modal">
-                <div className="relative p-5 sm:mx-12 md:mx-8  mx-auto lg:w-1/2 w-full shadow-lg rounded-md bg-gris p-12" >
+                <div className="relative p-5 sm:mx-12 md:mx-8  mx-auto lg:w-1/2 w-full shadow-lg rounded-md bg-gris p-6" >
                     <div className="mt-10 sm:mt-0 px-8">
                         <div className="p-4 mb-2 sm:px-0 bg-jaune rounded-full mx-24">
                             <h3 className="text-3xl font-poste font-bold text-bleu">Ajouter un utilisateur</h3>
@@ -102,7 +107,7 @@ function Table() {
                                                 required
                                                 onChange={(e) => setName(e.target.value)}
                                                 autoComplete="off"
-                                                className="mt-1 block w-full rounded-md border border-gray-300 h-8 p-4"
+                                                className="formelem mt-1 block w-full rounded-md border border-gray-300 h-8 p-4"
                                             />
                                         </div>
 
@@ -117,7 +122,7 @@ function Table() {
                                                 required
                                                 onChange={(e) => setSurname(e.target.value)}
                                                 autoComplete="off"
-                                                className="mt-1 block w-full rounded-md border border-gray-300 h-8 p-4"
+                                                className="formelem mt-1 block w-full rounded-md border border-gray-300 h-8 p-4"
                                             />
                                         </div>
 
@@ -132,7 +137,7 @@ function Table() {
                                                 required
                                                 onChange={(e) => setUsername(e.target.value)}
                                                 autoComplete="off"
-                                                className="mt-1 block w-full rounded-md border border-gray-300 h-8 p-4"
+                                                className="formelem mt-1 block w-full rounded-md border border-gray-300 h-8 p-4"
                                             />
                                         </div>
 
@@ -147,35 +152,31 @@ function Table() {
                                                 required
                                                 onChange={(e) => setPassword(e.target.value)}
                                                 autoComplete="off"
-                                                className="mt-1 block w-full rounded-md border border-gray-300 h-8 p-4"
+                                                className="formelem mt-1 block w-full rounded-md border border-gray-300 h-8 p-4"
                                             />
                                         </div>
+                                        
 
-
-                                        {/* <div className='py-4'>
-                                                    <label htmlFor="country" className="block text-sm font-medium text-gray-700">
+                                        <div className='py-4'>
+                                                    <label htmlFor="role" className="block text-lg font-bold text-gray-700">
                                                         Role
                                                     </label>
-                                                    <select
-                                                        id="role"
-                                                        name="role"
-                                                        isMulti
-                                                        options={roleoptions}
-                                                        onChange={selectRole}
-                                                        autoComplete="country-name"
-                                                        className="mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-5 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-                                                    >
-                                                        <option>Receptioniste</option>
-                                                        <option>Administrateur</option>
-                                                    </select>
-                                                </div> */}
-                                        <Select options={roleoptions} onChange={selectRole} id="role" placeholder='Role' required />
+                            
+                                                    <Select value={role} options={roleoptions} onChange={setRole} className='text-left' id="role" placeholder='Role' required />
+                                                </div>
                                     </form>
                                 </div>
                                 <div className="bg-gris px-4 py-3 text-right sm:px-6">
                                     <button
+                                        onClick={reset}
+                                        className="inline-flex justify-center rounded-md bg-white py-2 px-4 text-lg font-bold text-bleu mr-2"
+                                    >
+                                        Annuler
+                                    </button>
+
+                                    <button
                                         onClick={addUser}
-                                        className="inline-flex justify-center rounded-md bg-bleu py-2 px-4 text-lg font-bold text-white "
+                                        className="inline-flex justify-center rounded-md bg-bleu py-2 px-4 text-lg font-bold text-white ml-2"
                                     >
                                         Enregister
                                     </button>
