@@ -10,9 +10,6 @@ function Table() {
     const [password, setPassword] = useState('');
     const [role, setRole] = useState([]);
 
-    const selectRole = (e) => {
-        setRole(e.label)
-    }
 
     const roleoptions = [
         {
@@ -26,7 +23,7 @@ function Table() {
     ]
 
     const api2 = "http://localhost:3001/users";
-    console.log(name, surname, username, password, role);
+    console.log(name, surname, username, password, role.label);
     
     const addUser = () => {
         Axios.post(api2, {
@@ -34,7 +31,7 @@ function Table() {
             surname: surname,
             username: username,
             password: password,
-            role: role,
+            role: role.label,
         }).then((response) => {
             console.log(role)
             console.log(response);
@@ -45,6 +42,13 @@ function Table() {
             }
             </script>
         }).catch((err) => console.log(err));
+
+    };
+
+    const reset = () => {
+        const inputs = document.getElementsByClassName('formelem');
+        [...inputs].forEach(e => e.value = '' );
+        setRole([])
 
     };
 
@@ -82,7 +86,7 @@ function Table() {
             </div>
 
             <div className="fixed hidden inset-0 bg-gray-600 bg-opacity-50  overflow-y-auto h-full items-center justify-center" id="my-modal">
-                <div className="relative p-5 sm:mx-12 md:mx-8  mx-auto lg:w-1/2 w-full shadow-lg rounded-md bg-gris p-12" >
+                <div className="relative p-5 sm:mx-12 md:mx-8  mx-auto lg:w-1/2 w-full shadow-lg rounded-md bg-gris p-6" >
                     <div className="mt-10 sm:mt-0 px-8">
                         <div className="p-4 mb-2 sm:px-0 bg-jaune rounded-full mx-24">
                             <h3 className="text-3xl font-poste font-bold text-bleu">Ajouter un utilisateur</h3>
@@ -103,7 +107,7 @@ function Table() {
                                                 required
                                                 onChange={(e) => setName(e.target.value)}
                                                 autoComplete="off"
-                                                className="mt-1 block w-full rounded-md border border-gray-300 h-8 p-4"
+                                                className="formelem mt-1 block w-full rounded-md border border-gray-300 h-8 p-4"
                                             />
                                         </div>
 
@@ -118,7 +122,7 @@ function Table() {
                                                 required
                                                 onChange={(e) => setSurname(e.target.value)}
                                                 autoComplete="off"
-                                                className="mt-1 block w-full rounded-md border border-gray-300 h-8 p-4"
+                                                className="formelem mt-1 block w-full rounded-md border border-gray-300 h-8 p-4"
                                             />
                                         </div>
 
@@ -133,7 +137,7 @@ function Table() {
                                                 required
                                                 onChange={(e) => setUsername(e.target.value)}
                                                 autoComplete="off"
-                                                className="mt-1 block w-full rounded-md border border-gray-300 h-8 p-4"
+                                                className="formelem mt-1 block w-full rounded-md border border-gray-300 h-8 p-4"
                                             />
                                         </div>
 
@@ -148,7 +152,7 @@ function Table() {
                                                 required
                                                 onChange={(e) => setPassword(e.target.value)}
                                                 autoComplete="off"
-                                                className="mt-1 block w-full rounded-md border border-gray-300 h-8 p-4"
+                                                className="formelem mt-1 block w-full rounded-md border border-gray-300 h-8 p-4"
                                             />
                                         </div>
                                         
@@ -158,13 +162,13 @@ function Table() {
                                                         Role
                                                     </label>
                             
-                                                    <Select options={roleoptions} onChange={selectRole} className='text-left' id="role" placeholder='Role' required />
+                                                    <Select value={role} options={roleoptions} onChange={setRole} className='text-left' id="role" placeholder='Role' required />
                                                 </div>
                                     </form>
                                 </div>
                                 <div className="bg-gris px-4 py-3 text-right sm:px-6">
                                     <button
-                                        onClick={addUser}
+                                        onClick={reset}
                                         className="inline-flex justify-center rounded-md bg-white py-2 px-4 text-lg font-bold text-bleu mr-2"
                                     >
                                         Annuler
