@@ -7,12 +7,12 @@ import { useNavigate } from 'react-router-dom';
 
 let navigation = [
   { name: 'Dashboard', href: '/dashboard', current: false },
-  { name: 'Rendez-vous', href: '/rdv', current: false },
+  { name: 'Rendez-vous', href: '/rdvs', current: false },
   { name: 'Employes', href: '/table', current: false }
 ]
 
 let path = window.location.pathname;
-navigation.find(e => e.href==path).current = true
+navigation.map(e => (e.href==path) ? e.current = true : e )
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
@@ -81,7 +81,7 @@ export default function NavBar() {
                   }}
                   className="rounded-full bg-bleu p-1 text-gris hover:text-jaune focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-white flex space-x-2 items-center"
                 >
-                  <ArrowLeftOnRectangleIcon className="h-6 w-6" aria-hidden1="true" />
+                  <ArrowLeftOnRectangleIcon className="h-6 w-6" aria-hidden="true" />
                   <span className="align-middle inline-block p-2 text-sm ml-0">Se deconnecter</span>
                 </button>
               </div>

@@ -98,7 +98,7 @@ const Login = () => {
                           <input placeholder="entrez votre mot de passe" id="password"  onChange={(e) => {
                             setPassword(e.target.value);}} name="password" className='input' type="password" />
                             
-                          <i class="far fa-eye-slash"></i>
+                          <i className="far fa-eye-slash"></i>
                       </div>
                       <div>
               
