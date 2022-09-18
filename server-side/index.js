@@ -100,16 +100,16 @@ app.post("/rdv",(req,res) =>{
 })
 
 // Get RDVs
-app.get("/get_rdv", (req, res) => {
-  db.query("SELECT * FROM rendezvous", (err, result) => {
+app.get("/get_rdv", async (req, res) => {
+  datab = await db.query("SELECT * FROM rendezvous", (err, result) => {
     if (err) {
       console.log(err);
     } else {
-      res.send(result);
+      //res.send(result);
       console.log(result);
+      //console.log("datab", datab)
       console.log("ACCEPTmodddddddddd");
-      listerdv = result;
-
+      res.send(result);
     }
   }); });
 
