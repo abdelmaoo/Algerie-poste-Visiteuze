@@ -15,7 +15,7 @@ export default function ListRdv() {
   let [infos, setInfos] = useState([]);
   let [todos, setTodos] = useState([{}]);
   const user = JSON.parse(localStorage.getItem('user'));
-  const id = user.id;
+  // const id = user.id;
   const apiget5 = 'http://localhost:3001/get_rdv'
 
 
@@ -44,7 +44,8 @@ export default function ListRdv() {
   console.log(rdvs)
 
   return (
-    <div className="w-full max-w-4xl px-2 py-16 sm:px-0 mx-auto font-poste" id='modal_table'>
+    <div className='font-poste mt-10'>
+    <div className="w-full max-w-4xl px-2 py-16 sm:px-0 mx-auto" id='modal_table'>
       <Tab.Group>
         <Tab.List className="flex space-x-1 rounded-xl bg-bleu p-1">
           {Object.keys(rdvs).map((category) => (
@@ -110,19 +111,58 @@ export default function ListRdv() {
 
                   }
 
-                  {/* <a
-                      href="#"
-                      className={classNames(
-                        'absolute inset-0 rounded-md',
-                        'ring-blue-400 focus:z-10 focus:outline-none focus:ring-2'
-                      )}
-                    /> */}
+        
                 </div>
               ))}
             </Tab.Panel>
           ))}
         </Tab.Panels>
       </Tab.Group>
+      </div >
+
+      <div className="fixed hidden inset-0 bg-gray-600 bg-opacity-50  overflow-y-auto h-full items-center justify-center backdrop-blur-sm" id="cn-modal">
+        <div className="relative p-4 lg:w-2/5 w-3/4 shadow-lg rounded-md bg-gris text-xl" >
+          <div className='mt-5 sm:mt-0 px-8 py-2 '>
+            <label htmlFor="name" className="block font-bold text-gray-700 p-4 mb-4 sm:px-0 bg-jaune rounded-full mx-24 text-bleu">
+              Entrer numero de la piece d'identitee
+            </label>
+            <input
+              placeholder='numero de la piece d identitee'
+              type="text"
+              name="cn"
+              id="cn"
+              required
+              autoComplete="off"
+              className="mt-1 block w-full rounded-md border border-gray-300 h-6 p-4"
+            />
+            <button className='bg-bleu text-white rounded-md px-8 py-2 m-2 place-self-end'>
+              Continuer
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div className="fixed hidden inset-0 bg-gray-600 bg-opacity-50  overflow-y-auto h-full items-center justify-center backdrop-blur-sm" id="cn-modal">
+        <div className="relative p-4 lg:w-2/5 w-3/4 shadow-lg rounded-md bg-gris text-xl" >
+          <div className='mt-5 sm:mt-0 px-8 py-2 '>
+            <label htmlFor="name" className="block font-bold text-gray-700 p-4 mb-4 sm:px-0 bg-jaune rounded-full mx-24 text-bleu">
+              Entrer l'heure de sortie
+            </label>
+            <input
+              placeholder='numero de la piece d identitee'
+              type="time"
+              name="cn"
+              id="cn"
+              required
+              autoComplete="off"
+              className="mt-1 block w-full rounded-md border border-gray-300 p-4"
+            />
+            <button className='bg-bleu text-white rounded-md px-8 py-2 m-2 place-self-end'>
+              Continuer
+            </button>
+          </div>
+        </div>
+      </div>
     </div >
   )
 }
