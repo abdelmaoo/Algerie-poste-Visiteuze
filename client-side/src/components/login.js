@@ -48,7 +48,7 @@ const Login = () => {
         console.log("admin",user)
         history('/table')
         console.log(user.role)
-      }else if(user.role==="receptioniste"){
+      }else if(user.role==="Receptioniste"){
         console.log("recep",user.role)
         history('/rdv')
       }

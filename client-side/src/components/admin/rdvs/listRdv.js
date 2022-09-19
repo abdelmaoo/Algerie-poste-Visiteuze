@@ -4,135 +4,46 @@ import { useState, useEffect } from 'react'
 import { Tab } from '@headlessui/react'
 import axios from "axios";
 import { Await } from 'react-router';
+const fetch = require('node-fetch');
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
 function ListRdv() {
-  //  var listedata = JSON.stringify(user || null)
-  // const [infos, setInfos] = useState([]);
-  // const user = JSON.parse(localStorage.getItem('user'));
-  // const id = user.id;
-  // const apiget5 = "http://localhost:3001/get_rdv"
-  // useEffect(() =>  {
-  //     const getInfos =  async () => {
-  //         const { data: res } = await axios.get(apiget5).then(res => res.data).then(res => console.log(res));
-  //         //const dataa = await getData(apiget5)
-  //         setInfos(res);
-  //     };
-  //     getInfos();
-  //     // console.log("heeyy kidayrin", axios.get(apiget5));
-  //     // let dataa = axios.get(apiget5).then(res => res.data).then(res => console.log(res));
-  //     console.log(infos)
-  // }, []);
+  let [todos2, setTodos2] = useState([{}]);
 
-  {/* <script>
-   var listedata = <%- JSON.stringify(listerdv || null) %>
-</script> */}
-
-
-
-  let rendezvous = [
-    {
-      id: 1,
-      nom: 'abdelmaoo',
-      numero_carte: 1111111111111111,
-      direction: 'fre',
-      date: "9/14/2022",
-      heure_entree: "10:30",
-      heure_sortie: null,
-      titre: " cd ",
-      motif: " cjendckjdfnjekrkenvrijemcernmcnf\n      vjknvjrnvrjtnvirvrktjvbnktivbrnnb\nvjrekreijsvkneknvciwnvwelrnvisl\tc",
-      type_rendezvous: " vdcd ",
-      auteur: " vdjkvd ",
-      validation: 0
-    },
-    {
-      id: 2,
-      nom: 'abdelmaoo2',
-      numero_carte: 2222222222,
-      direction: 'fre',
-      date: "9/20/2022",
-      heure_entree: "11:30",
-      heure_sortie: null,
-      titre: " cd ",
-      motif: " cjendckjdfnjekrkenvrijemcernmcnfcjendckjdfnjekrkenvrijemcernmcnfcjendckjdfnjekrkenvrijemcernmcnfe\n      vjknvjrnvrjtnvirvrktjvbnktivbrnnb\nvjrekreijsvkneknvciwnvwelrnvisl\tc",
-      type_rendezvous: " vdcd ",
-      auteur: " vdjkvd ",
-      validation: 0
-    },
-    {
-      id: 3,
-      nom: 'abdelmaoo3',
-      numero_carte: 333333333333,
-      direction: 'fre',
-      date: "9/16/2022",
-      heure_entree: "10:30",
-      heure_sortie: null,
-      titre: " cd ",
-      motif: " cjendckjdfnjekrkenvrijemcernmcnf\n      vjknvjrnvrjtnvirvrktjvbnktivbrnnb\nvjrekreijsvkneknvciwnvwelrnvisl\tc",
-      type_rendezvous: " vdcd ",
-      auteur: " vcsdsdjkvd ",
-      validation: 1
-    },
-    {
-      id: 4,
-      nom: 'abdelmaoo4',
-      numero_carte: 4444444444,
-      direction: 'fre',
-      date: "9/4/2022",
-      heure_entree: "10:30",
-      heure_sortie: null,
-      titre: " cd ",
-      motif: " cjendckjdfnjekrkenvrijemcernmcnf\n      vjknvjrnvrjtnvirvrktjvbnktivbrnnb\nvjrekreijsvkneknvciwnvwelrnvisl\tc",
-      type_rendezvous: " vdcd ",
-      auteur: " vdjkvd ",
-      validation: 0
-    },
-    {
-      id: 5,
-      nom: 'abdelmaoo5',
-      numero_carte: 555555555555555,
-      direction: 'fre',
-      date: "9/14/2022",
-      heure_entree: "10:30",
-      heure_sortie: "11:30",
-      titre: " cd ",
-      motif: " cjendckjdfnjekrkenvrijemcernmcnf\n      vjknvjrnvrjtnvirvrktjvbnktivbrnnb\nvjrekreijsvkneknvciwnvwelrnvisl\tc",
-      type_rendezvous: " vdcd ",
-      auteur: " vdjkvd ",
-      validation: 2
-    },
-    {
-      id: 6,
-      nom: 'abdelmaoo6',
-      numero_carte: 66666666666666,
-      direction: 'fre',
-      date: "9/16/2022",
-      heure_entree: "10:30",
-      heure_sortie: "11:30",
-      titre: " cd ",
-      motif: " cjendckjdfnjekrkenvrijemcernmcnfcjendckjdfnjekrkenvrijemcernmcnfcjendckjdfnjekrkenvrijemcernmcnf\n      vjknvjrnvrjtnvirvrktjvbnktivbrnnb\nvjrekreijsvkneknvciwnvwelrnvisl\tc ",
-      type_rendezvous: " vdcd ",
-      auteur: " vdjkvd ",
-      validation: 2
-    },
-  ]
-
-  //rendezvous = infos;
-  // console.log(infos)
-  // console.log("heeyyy", rendezvous)
-  // console.log(rendezvous)
+  useEffect(() => {
+    const getTodos2 = async () => {
+      try {
+        const response = await fetch('http://localhost:3001/get_rdv')
+        const rdvp = await response.json();
+        if (response.ok) {
+          setTodos2(rdvp)
+          console.log("response",response);
+          console.log("mjghhh",rdvp, rdvp[0]);
+        }
+      } catch (err) {
+        console.error(err.message);
+        console.log("something went wrong");
+      }
+    }
+    getTodos2();
+  }, []);
+  
+ let tab2 = [...todos2]
   let day = new Date()
   day.setHours(0, 0, 0, 0)
 
-  let [rdvs] = useState({
-    "a venir": rendezvous.filter(rdv => rdv.validation === 0 && day <= new Date(rdv.date)),
-    "en cours": rendezvous.filter(rdv => rdv.validation === 1 && day == new Date(rdv.date)),
-    "termines": rendezvous.filter(rdv => rdv.validation === 2 && day > new Date(rdv.date)),
-    "annules": rendezvous.filter(rdv => rdv.validation === 0 && day > new Date(rdv.date)),
-  })
+console.log("this is tab2",tab2, new Date(tab2[0].date))
+
+  let rdvs = {
+    "a venir": tab2.filter(rdv => rdv.validation === 0 && day <= new Date(rdv.date)),
+    "en cours": tab2.filter(rdv => rdv.validation === 1 ),
+    "termines": tab2.filter(rdv => rdv.validation === 2 && day > new Date(rdv.date)),
+    "annules": tab2.filter(rdv => rdv.validation === 0 && day > new Date(rdv.date)),
+  }
+  console.log("this is rdvs",rdvs)
 
   return (
     <div>

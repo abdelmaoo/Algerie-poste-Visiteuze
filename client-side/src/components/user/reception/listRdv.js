@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Tab } from '@headlessui/react'
-import axios from "axios";
+import Axios from "axios";
 import { Await } from 'react-router';
 const fetch = require('node-fetch');
 
@@ -35,6 +35,34 @@ export default function ListRdv() {
   }, []);
 
   let tab = [...todos]
+
+        let namee = tab[0].name;
+        let directione = tab[0].direction;
+        let datee =  tab[0].date;
+        let heure_entreee = tab[0].heure_entree;
+        let titlee = tab[0].title;
+        let motife = tab[0].motif;
+        let type_rendezvouse = tab[0].type_rendezvous;
+
+  const addPdf = () => {
+    Axios.post('http://localhost:3001/document.pdf', {
+        name: namee,
+        direction: directione,
+        date: datee,
+        heure_entree: heure_entreee,
+        title: titlee,
+        motif: motife,
+        type_rendezvous: type_rendezvouse,
+    }).then((response) => {
+        console.log(response);
+        console.log(user)
+
+
+
+    }).catch((err) => console.log(err));
+};
+
+
 
   let rdvs = {
     "a venir": tab.filter(rdv => rdv.validation == 0),
@@ -103,7 +131,7 @@ export default function ListRdv() {
                         <button className='bg-jaune text-bleu rounded-md px-8 py-2 mx-2 '>
                           Valider la sortie
                         </button>
-                        <button className='bg-bleu text-white rounded-md px-8 py-2 mx-2'>
+                        <button onClick={addPdf} className='bg-bleu text-white rounded-md px-8 py-2 mx-2'>
                           Export
                         </button>
                       </div>

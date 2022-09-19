@@ -3,6 +3,8 @@ const app = express();
 const mysql = require("mysql");
 const cors = require("cors");
 var bp = require('body-parser')
+const PDFDocument = require('pdfkit');
+const blobStream = require('blob-stream');
 
 app.use(cors({
     origin: ["http://localhost:3000"],
@@ -105,12 +107,155 @@ app.get("/get_rdv", async (req, res) => {
     if (err) {
       console.log(err);
     } else {
-      //res.send(result);
       console.log(result);
-      //console.log("datab", datab)
       console.log("ACCEPTmodddddddddd");
       res.send(result);
     }
   }); });
 
   //"SELECT id,nom,direction,date,heure_entree,heure_sortie,tite,motif,validation,type_rendevous,auteur FROM rendezvous"
+// Get accounts
+app.get("/get_account",(req, res) => {
+  db.query("SELECT * FROM auth", (err, result) => {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log(result);
+      console.log("kidayrinnn");
+      res.send(result);
+    }
+  }); });
+
+  // add RVP
+app.post("/rdvp",(req,res) =>{
+  const name =req.body.name;
+  const direction = req.body.direction;
+  const number = null;
+  const date = req.body.date;
+  const heure_entree = req.body.heure_entree;
+  const heure_sortie = null;
+  const title = req.body.title;
+  const motif = req.body.motif;
+  const validation = 0;
+  const type_rendezvous = req.body.type_rendezvous;
+  const auteur = req.body.auteur;
+  const typee = req.body.typee;
+  const insert_grp = "INSERT INTO rendezvous (nom,numero_carte,direction,date,heure_entree,heure_sortie,titre,motif,validation,type_rendezvous,auteur) VALUES (?,?,?,?,?,?,?,?,?,?,?)"
+  db.query(insert_grp,[name,number,direction,date,heure_entree,heure_sortie,title,motif,validation,type_rendezvous,auteur],(error,result)=>{
+    res.send(result);
+    console.log(error)
+    console.log("baaaaaack rvp",name,number,direction,date,heure_entree,heure_sortie,title,motif,validation,type_rendezvous,auteur)
+  });
+})
+
+
+app.get('/document.pdf', async (req, res) => {
+
+  // db.query("SELECT * FROM rendezvous WHERE id= 1", (err, result) => {
+  //   if (err) {
+  //     console.log(err);
+  //   } else {
+  //     console.log(result);
+  //     console.log("kidayrinnn");
+  //     let name = result.nom;
+  //     console.log(nom)
+  //   }
+  // });
+  const name =req.body.name;
+  const direction = req.body.direction;
+  const number = 15;
+  const date = req.body.date;
+  const heure_entree = req.body.heure_entree;
+  const title = req.body.title;
+  const motif = req.body.motif;
+  const type_rendevous = req.body.type_rendevous;
+  const doc = new PDFDocument();
+  //let name = "anoir"
+  
+  // vv The following line is the one you're looking for
+  doc.pipe(res);
+
+  doc.image('C:/Users/user/Desktop/poste/client-side/src/components/images/poste.png', 0, 10, {width: 300})
+    .moveDown()
+    .moveDown()
+    .moveDown()
+    .moveDown()
+     .font('Helvetica-Bold').text('\n Bon de visite \n', {
+      align: 'center',
+     })
+     .moveDown()
+     .moveDown()
+     .moveDown()
+     .moveDown()
+    .text(`Nom: ${name}`, {
+  width: 410,
+  align: 'left'
+}
+) 
+.moveDown()
+.moveDown()
+.moveDown()
+.text(`Numero de carte: ${number}`, {
+  width: 410,
+  align: 'left'
+}
+).moveDown()
+.moveDown()
+.moveDown()
+.text(`Direction: ${direction}`, {
+  width: 410,
+  align: 'left'
+}
+).moveDown()
+.moveDown()
+.moveDown()
+.text(`Type de rendez vous: ${type_rendevous}`, {
+  width: 410,
+  align: 'left'
+}
+).moveDown()
+.moveDown()
+.moveDown()
+.text(`Date: ${date}`, {
+  width: 410,
+  align: 'left'
+}
+).moveDown()
+.moveDown()
+.moveDown()
+.text(`Heure d\'entree: ${heure_entree}`, {
+  width: 410,
+  align: 'left'
+}
+).moveDown()
+.moveDown()
+.moveDown()
+.text('Heure de sortie:', {
+  width: 410,
+  align: 'left'
+}
+).moveDown()
+.moveDown()
+.moveDown()
+.text(`Titre: ${title}`, {
+  width: 410,
+  align: 'left'
+}
+).moveDown()
+.moveDown()
+.moveDown()
+.text(`Motif: ${motif}`, {
+  width: 410,
+  align: 'left'
+}
+).moveDown()
+.moveDown()
+.moveDown()
+    .font('Times-Roman', 13);
+
+  doc.end();
+
+  res.writeHead(200, {
+    'Content-Type': 'application/pdf',
+  });
+});

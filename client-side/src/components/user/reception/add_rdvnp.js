@@ -111,7 +111,7 @@ function AddRdvNp() {
     console.log(role, role == "receptioniste");
     if (role == "administrateur") {
         type_rendezvous="RVP";
-    } else if(role == "receptioniste"){
+    } else{
         type_rendezvous="RVNP";
     }
 

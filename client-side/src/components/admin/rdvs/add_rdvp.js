@@ -6,9 +6,7 @@ function AddRdvP() {
     const [name, setName] = useState('');
     const [direction, setDirection] = useState([]);
     const [date, setDate] = useState('');
-    const [number, setNumber] = useState('');
     const [heure_entree, setHeure_entree] = useState('');
-    const [heure_sortie, setHeure_sortie] = useState('');
     const [title, setTitle] = useState('');
     const [motif, setMotif] = useState('');
     const [validation, setValidation] = useState('');
@@ -47,45 +45,32 @@ function AddRdvP() {
         { value: '20', label: 'DCPLCBC-FT' }
     ]
 
-    const api3 = "http://localhost:3001/rdv";
-    console.log(name, direction, number, date, heure_entree, heure_sortie, title, motif, validation);
+    const api6 = "http://localhost:3001/rdvp";
+    console.log(name, direction, date, heure_entree, title, motif, validation);
     console.log(role, role == "receptioniste");
     if (role == "administrateur") {
         type_rendezvous = "RVP";
-    } else if (role == "receptioniste") {
+    } else  {
         type_rendezvous = "RVNP";
     }
 
-    const addRVn = () => {
-        Axios.post(api3, {
+    const addRVp = () => {
+        Axios.post(api6, {
             name: name,
             direction: direction,
-            number: number,
             date: date,
             heure_entree: heure_entree,
-            heure_sortie: heure_sortie,
             title: title,
             motif: motif,
             validation: validation,
             auteur: auteur,
             type_rendezvous: type_rendezvous,
         }).then((response) => {
-            console.log(heure_entree > heure_sortie)
-            if (heure_entree > heure_sortie) {
-                <script>
-                    function myFunction() {
-                        alert("Heure d'entrée doit etre inférieure a l'heure de sortie !")
-                    }
-                </script>
-            } else {
-                <script>
-                    function myFunction() {
-                        alert("Ajouté avec succés !")
-                    }
-                </script>
-            }
             console.log(response);
             console.log(user, auteur)
+
+
+
         }).catch((err) => console.log(err));
     };
 
@@ -139,7 +124,7 @@ function AddRdvP() {
                                             </label>
 
                                             <input
-                                                placeholder='entrez le nom et prenom'
+                                                placeholder='entrez le nom et le prenom'
                                                 type="text"
                                                 name="name"
                                                 id="name"
@@ -227,7 +212,7 @@ function AddRdvP() {
                                 </div>
 
                                 <div className="bg-gris px-4 py-2 text-right sm:px-6">
-                                    <button onClick={addRVn} className="inline-flex justify-center rounded-md bg-bleu py-2 px-4 text-lg font-bold text-white" > Ajouter </button>
+                                    <button onClick={addRVp} className="inline-flex justify-center rounded-md bg-bleu py-2 px-4 text-lg font-bold text-white" > Ajouter </button>
                                 </div>
                             </div>
                         </div>
