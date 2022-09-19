@@ -1,133 +1,47 @@
 import { useState, useEffect } from 'react'
 import { Tab } from '@headlessui/react'
-import axios from "axios"; 
+import axios from "axios";
 import { Await } from 'react-router';
+const fetch = require('node-fetch');
+
+
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
 export default function ListRdv() {
-//  var listedata = JSON.stringify(user || null)
-    const [infos, setInfos] = useState([]);
-    const user = JSON.parse(localStorage.getItem('user'));
-    const id = user.id;
-    const apiget5 = "http://localhost:3001/get_rdv"
-    useEffect(() =>  {
-        const getInfos =  async () => {
-            const { data: res } = await axios.get(apiget5).then(res => res.data).then(res => console.log(res));
-            //const dataa = await getData(apiget5)
-            setInfos(res);
-        };
-        getInfos();
-        // console.log("heeyy kidayrin", axios.get(apiget5));
-        // let dataa = axios.get(apiget5).then(res => res.data).then(res => console.log(res));
-        console.log(infos)
-    }, []);
 
-{/* <script>
-   var listedata = <%- JSON.stringify(listerdv || null) %>
-</script> */}
+  let [infos, setInfos] = useState([]);
+  let [todos, setTodos] = useState([{}]);
+  const user = JSON.parse(localStorage.getItem('user'));
+  const id = user.id;
+  const apiget5 = 'http://localhost:3001/get_rdv'
 
 
+  useEffect(() => {
+    const getTodos = async () => {
+      try {
+        const response = await fetch('http://localhost:3001/get_rdv')
+        const jsonData = await response.json();
+        if (response.ok) {
+          setTodos(jsonData)
+        }
+      } catch (err) {
+        console.error(err.message);
+      }
+    }
+    getTodos();
+  }, []);
 
-  let rendezvous = [
-    {
-      id: 1,
-      nom: 'abdelmaoo',
-      numero_carte: 1111111111111111,
-      direction: 'fre',
-      date: "2022-01-01",
-      heure_entree: "10:30",
-      heure_sortie: null,
-      titre: " cd ",
-      motif: " cdsdf ",
-      type_rendezvous: " vdcd ",
-      auteur: " vdjkvd ",
-      validation: 0
-    },
-    {
-      id: 2,
-      nom: 'abdelmaoo2',
-      numero_carte: 22222222222222222,
-      direction: 'fre',
-      date: "2022-02-02",
-      heure_entree: "10:30",
-      heure_sortie: null,
-      titre: " cd ",
-      motif: " cdsdf ",
-      type_rendezvous: " vdcd ",
-      auteur: " vdjkvd ",
-      validation: 0
-    },
-    // {
-    //   id: 3,
-    //   nom: 'abdelmaoo3',
-    //   numero_carte: 333333333333,
-    //   direction: 'fre',
-    //   date: "2022-03-03",
-    //   heure_entree: "10:30",
-    //   heure_sortie: null,
-    //   titre: " cd ",
-    //   motif: " cdsdf ",
-    //   type_rendezvous: " vdcd ",
-    //   auteur: " vdjkvd ",
-    //   validation: 1
-    // },
-    // {
-    //   id: 4,
-    //   nom: 'abdelmaoo4',
-    //   numero_carte: 444444444444444444,
-    //   direction: 'fre',
-    //   date: "2022-04-04",
-    //   heure_entree: "10:30",
-    //   heure_sortie: null,
-    //   titre: " cd ",
-    //   motif: " cdsdf ",
-    //   type_rendezvous: " vdcd ",
-    //   auteur: " vdjkvd ",
-    //   validation: 1
-    // },
-    // {
-    //   id: 5,
-    //   nom: 'abdelmaoo5',
-    //   numero_carte: 555555555555555,
-    //   direction: 'fre',
-    //   date: "2022-05-05",
-    //   heure_entree: "10:30",
-    //   heure_sortie: "11:30",
-    //   titre: " cd ",
-    //   motif: " cdsdf ",
-    //   type_rendezvous: " vdcd ",
-    //   auteur: " vdjkvd ",
-    //   validation: 2
-    // },
-    // {
-    //   id: 6,
-    //   nom: 'abdelmaoo6',
-    //   numero_carte: 66666666666666,
-    //   direction: 'fre',
-    //   date: "2022-06-06",
-    //   heure_entree: "10:30",
-    //   heure_sortie: "11:30",
-    //   titre: " cd ",
-    //   motif: " cdsdf ",
-    //   type_rendezvous: " vdcd ",
-    //   auteur: " vdjkvd ",
-    //   validation: 2
-    // },
-  ]
+  let tab = [...todos]
 
-  //rendezvous = infos;
-  console.log(infos)
-  console.log("heeyyy", rendezvous)
-  console.log(rendezvous)
-  let [rdvs] = useState({
-    "a venir": infos.filter(rdv => rdv.validation === 0),
-    "en cours": infos.filter(rdv => rdv.validation === 1),
-    "termines": infos.filter(rdv => rdv.validation === 2),
-  })
-//  console.log(results)
+  let rdvs = {
+    "a venir": tab.filter(rdv => rdv.validation == 0),
+    "en cours": tab.filter(rdv => rdv.validation == 1),
+    "termines": tab.filter(rdv => rdv.validation == 2),
+  }
+  console.log(rdvs)
 
   return (
     <div className="w-full max-w-4xl px-2 py-16 sm:px-0 mx-auto font-poste" id='modal_table'>
