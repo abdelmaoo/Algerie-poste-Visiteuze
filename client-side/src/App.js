@@ -1,10 +1,11 @@
 import List  from "./components/admin/gestion/list";
 import Recept  from "./components/user/reception/reception";
 import './App.css';
-import { BrowserRouter as Router , Switch ,Route , Routes} from "react-router-dom";
+import { BrowserRouter as Router , Route , Routes} from "react-router-dom";
 import Login from "./components/login.js";
 import RendezVous from "./components/user/rdvnp";
-import Dashboard from "./components/admin/gestion/dashboard";
+import Home from "./components/admin/dashboard/Home";
+
 
 
 function App() {
@@ -16,7 +17,7 @@ function App() {
     <Route exact path="/" element={<Login/>} />
     <Route path="/rdv" element={<Recept />} />
     <Route path="/table" element={<List />} />
-    <Route path="/dashboard" element={<Dashboard />} />
+    <Route path="/dashboard" element={<Home />} />
     </Routes>
     </div>
     </div>
