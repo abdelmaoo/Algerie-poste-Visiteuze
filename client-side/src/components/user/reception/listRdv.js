@@ -43,6 +43,7 @@ export default function ListRdv() {
         let titlee = tab[0].title;
         let motife = tab[0].motif;
         let type_rendezvouse = tab[0].type_rendezvous;
+        console.log("trryyy",namee);
 
   const addPdf = () => {
     Axios.post('http://localhost:3001/document.pdf', {

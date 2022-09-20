@@ -13,6 +13,7 @@
     "buffer": "^6.0.3",
     "chart.js": "^3.9.1",
     "graceful-fs": "^4.2.10",
+    "moment": "^2.29.4",
     "node-fetch": "^2.6.1",
     "pdfkit": "^0.13.0",
     "react-chartjs-2": "^4.3.1",
