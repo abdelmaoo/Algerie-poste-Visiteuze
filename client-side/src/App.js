@@ -2,9 +2,10 @@ import List  from "./components/admin/gestion/list";
 import Recept  from "./components/user/reception/reception";
 import './App.css';
 import ListRdv from "./components/admin/rdvs/listRdv";
-import { BrowserRouter as Router , Switch ,Route , Routes} from "react-router-dom";
+import { BrowserRouter as Router , Route , Routes} from "react-router-dom";
 import Login from "./components/login.js";
-import Dashboard from "./components/admin/gestion/dashboard";
+import Home from "./components/admin/dashboard/Home";
+
 
 
 function App() {
@@ -16,7 +17,7 @@ function App() {
     <Route exact path="/" element={<Login/>} />
     <Route path="/rdv" element={<Recept />} />
     <Route path="/table" element={<List />} />
-    <Route path="/dashboard" element={<Dashboard />} />
+    <Route path="/dashboard" element={<Home />} />
     <Route path="/rdvs" element={<ListRdv />} />
     </Routes>
     </div>
