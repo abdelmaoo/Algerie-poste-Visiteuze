@@ -1,107 +1,79 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Tab } from '@headlessui/react'
+import Axios from "axios";
+import { Await } from 'react-router';
+const fetch = require('node-fetch');
+
+
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
 export default function ListRdv() {
-  let rendezvous = [
-    {
-      id: 1,
-      nom: 'abdelmaoo',
-      numero_carte: 1111111111111111,
-      direction: 'fre',
-      date: "2022-01-01",
-      heure_entree: "10:30",
-      heure_sortie: null,
-      titre: " cd ",
-      motif: " cdsdf ",
-      type_rendezvous: " vdcd ",
-      auteur: " vdjkvd ",
-      validation: 0
-    },
-    {
-      id: 2,
-      nom: 'abdelmaoo2',
-      numero_carte: 22222222222222222,
-      direction: 'fre',
-      date: "2022-02-02",
-      heure_entree: "10:30",
-      heure_sortie: null,
-      titre: " cd ",
-      motif: " cdsdf ",
-      type_rendezvous: " vdcd ",
-      auteur: " vdjkvd ",
-      validation: 0
-    },
-    {
-      id: 3,
-      nom: 'abdelmaoo3',
-      numero_carte: 333333333333,
-      direction: 'fre',
-      date: "2022-03-03",
-      heure_entree: "10:30",
-      heure_sortie: null,
-      titre: " cd ",
-      motif: " cdsdf ",
-      type_rendezvous: " vdcd ",
-      auteur: " vdjkvd ",
-      validation: 1
-    },
-    {
-      id: 4,
-      nom: 'abdelmaoo4',
-      numero_carte: 444444444444444444,
-      direction: 'fre',
-      date: "2022-04-04",
-      heure_entree: "10:30",
-      heure_sortie: null,
-      titre: " cd ",
-      motif: " cdsdf ",
-      type_rendezvous: " vdcd ",
-      auteur: " vdjkvd ",
-      validation: 1
-    },
-    {
-      id: 5,
-      nom: 'abdelmaoo5',
-      numero_carte: 555555555555555,
-      direction: 'fre',
-      date: "2022-05-05",
-      heure_entree: "10:30",
-      heure_sortie: "11:30",
-      titre: " cd ",
-      motif: " cdsdf ",
-      type_rendezvous: " vdcd ",
-      auteur: " vdjkvd ",
-      validation: 2
-    },
-    {
-      id: 6,
-      nom: 'abdelmaoo6',
-      numero_carte: 66666666666666,
-      direction: 'fre',
-      date: "2022-06-06",
-      heure_entree: "10:30",
-      heure_sortie: "11:30",
-      titre: " cd ",
-      motif: " cdsdf ",
-      type_rendezvous: " vdcd ",
-      auteur: " vdjkvd ",
-      validation: 2
-    },
-  ]
 
-  let [rdvs] = useState({
-    "a venir": rendezvous.filter(rdv => rdv.validation === 0),
-    "en cours": rendezvous.filter(rdv => rdv.validation === 1),
-    "termines": rendezvous.filter(rdv => rdv.validation === 2),
-  })
+  let [infos, setInfos] = useState([]);
+  let [todos, setTodos] = useState([{}]);
+  const user = JSON.parse(localStorage.getItem('user'));
+  // const id = user.id;
+  const apiget5 = 'http://localhost:3001/get_rdv'
+
+
+  useEffect(() => {
+    const getTodos = async () => {
+      try {
+        const response = await fetch('http://localhost:3001/get_rdv')
+        const jsonData = await response.json();
+        if (response.ok) {
+          setTodos(jsonData)
+        }
+      } catch (err) {
+        console.error(err.message);
+      }
+    }
+    getTodos();
+  }, []);
+
+  let tab = [...todos]
+
+        let namee = tab[0].name;
+        let directione = tab[0].direction;
+        let datee =  tab[0].date;
+        let heure_entreee = tab[0].heure_entree;
+        let titlee = tab[0].title;
+        let motife = tab[0].motif;
+        let type_rendezvouse = tab[0].type_rendezvous;
+
+  const addPdf = () => {
+    Axios.post('http://localhost:3001/document.pdf', {
+        name: namee,
+        direction: directione,
+        date: datee,
+        heure_entree: heure_entreee,
+        title: titlee,
+        motif: motife,
+        type_rendezvous: type_rendezvouse,
+    }).then((response) => {
+        console.log(response);
+        console.log(user)
+
+
+
+    }).catch((err) => console.log(err));
+};
+
+
+
+  let rdvs = {
+    "a venir": tab.filter(rdv => rdv.validation == 0),
+    "en cours": tab.filter(rdv => rdv.validation == 1),
+    "termines": tab.filter(rdv => rdv.validation == 2),
+  }
   console.log(rdvs)
 
   return (
-    <div className="w-full max-w-4xl px-2 py-16 sm:px-0 mx-auto font-poste" id='modal_table'>
+    <div className='font-poste mt-10'>
+    <div className="w-full max-w-4xl px-2 py-16 sm:px-0 mx-auto" id='modal_table'>
       <Tab.Group>
         <Tab.List className="flex space-x-1 rounded-xl bg-bleu p-1">
           {Object.keys(rdvs).map((category) => (
@@ -160,26 +132,65 @@ export default function ListRdv() {
                         <button className='bg-jaune text-bleu rounded-md px-8 py-2 mx-2 '>
                           Valider la sortie
                         </button>
-                        <button className='bg-bleu text-white rounded-md px-8 py-2 mx-2'>
+                        <button onClick={addPdf} className='bg-bleu text-white rounded-md px-8 py-2 mx-2'>
                           Export
                         </button>
                       </div>
 
                   }
 
-                  {/* <a
-                      href="#"
-                      className={classNames(
-                        'absolute inset-0 rounded-md',
-                        'ring-blue-400 focus:z-10 focus:outline-none focus:ring-2'
-                      )}
-                    /> */}
+        
                 </div>
               ))}
             </Tab.Panel>
           ))}
         </Tab.Panels>
       </Tab.Group>
+      </div >
+
+      <div className="fixed hidden inset-0 bg-gray-600 bg-opacity-50  overflow-y-auto h-full items-center justify-center backdrop-blur-sm" id="cn-modal">
+        <div className="relative p-4 lg:w-2/5 w-3/4 shadow-lg rounded-md bg-gris text-xl" >
+          <div className='mt-5 sm:mt-0 px-8 py-2 '>
+            <label htmlFor="name" className="block font-bold text-gray-700 p-4 mb-4 sm:px-0 bg-jaune rounded-full mx-24 text-bleu">
+              Entrer numero de la piece d'identitee
+            </label>
+            <input
+              placeholder='numero de la piece d identitee'
+              type="text"
+              name="cn"
+              id="cn"
+              required
+              autoComplete="off"
+              className="mt-1 block w-full rounded-md border border-gray-300 h-6 p-4"
+            />
+            <button className='bg-bleu text-white rounded-md px-8 py-2 m-2 place-self-end'>
+              Continuer
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div className="fixed hidden inset-0 bg-gray-600 bg-opacity-50  overflow-y-auto h-full items-center justify-center backdrop-blur-sm" id="cn-modal">
+        <div className="relative p-4 lg:w-2/5 w-3/4 shadow-lg rounded-md bg-gris text-xl" >
+          <div className='mt-5 sm:mt-0 px-8 py-2 '>
+            <label htmlFor="name" className="block font-bold text-gray-700 p-4 mb-4 sm:px-0 bg-jaune rounded-full mx-24 text-bleu">
+              Entrer l'heure de sortie
+            </label>
+            <input
+              placeholder='numero de la piece d identitee'
+              type="time"
+              name="cn"
+              id="cn"
+              required
+              autoComplete="off"
+              className="mt-1 block w-full rounded-md border border-gray-300 p-4"
+            />
+            <button className='bg-bleu text-white rounded-md px-8 py-2 m-2 place-self-end'>
+              Continuer
+            </button>
+          </div>
+        </div>
+      </div>
     </div >
   )
 }

@@ -1,9 +1,9 @@
 import List  from "./components/admin/gestion/list";
 import Recept  from "./components/user/reception/reception";
 import './App.css';
+import ListRdv from "./components/admin/rdvs/listRdv";
 import { BrowserRouter as Router , Route , Routes} from "react-router-dom";
 import Login from "./components/login.js";
-import RendezVous from "./components/user/rdvnp";
 import Home from "./components/admin/dashboard/Home";
 
 
@@ -18,6 +18,7 @@ function App() {
     <Route path="/rdv" element={<Recept />} />
     <Route path="/table" element={<List />} />
     <Route path="/dashboard" element={<Home />} />
+    <Route path="/rdvs" element={<ListRdv />} />
     </Routes>
     </div>
     </div>

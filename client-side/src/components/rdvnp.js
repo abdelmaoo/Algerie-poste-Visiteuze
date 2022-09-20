@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Select from 'react-select';
 import Axios from 'axios';
-function AddRdvNp() {
+function RendezVous() {
 
     const [name, setName] = useState('');
     const [direction, setDirection] = useState([]);
@@ -155,11 +155,8 @@ function AddRdvNp() {
 
         let frame = document.getElementById("frame");
 
-        let modal_table = document.getElementById("modal_table");
-
         btn.onclick = function () {
             modal.style.display = "flex";
-            modal_table.style.display = "none"
             frame.classList.add('blur');
 
         }
@@ -167,7 +164,6 @@ function AddRdvNp() {
         window.onclick = function (event) {
             if (event.target == modal) {
                 modal.style.display = "none";
-                modal_table.style.display = "block";
                 frame.classList.remove('blur')
             }
         }
@@ -177,7 +173,7 @@ function AddRdvNp() {
         <div className='font-poste mt-10'>
             <div id='frame'>
                 <button className="bg-bleu text-white rounded-md px-8 py-2 font-poste" id="open-btn" >
-                    Ajouter rendez-vous
+                    Ajouter un rendez-vous
                 </button>
             </div>
 
@@ -197,7 +193,6 @@ function AddRdvNp() {
                                                 Nom
                                             </label>
                                             <input
-                                                placeholder='entrez le nom et prenom'
                                                 type="text"
                                                 name="name"
                                                 id="name"
@@ -217,10 +212,9 @@ function AddRdvNp() {
                                          
                                         <div className='py-2'>
                                             <label htmlFor="number" className="block text-lg font-bold text-gray-700">
-                                               Numero de la piece
+                                               Numero carte d'identitie
                                             </label>
                                             <input
-                                                placeholder='entrez le numero de la piece'
                                                 type="text"
                                                 name="number"
                                                 id="number"
@@ -236,7 +230,6 @@ function AddRdvNp() {
                                                 Date
                                             </label>
                                             <input
-                                                placeholder='entrez la date'
                                                 type="date"
                                                 name="date"
                                                 id="date"
@@ -252,7 +245,6 @@ function AddRdvNp() {
                                                Heure d'entree
                                             </label>
                                             <input
-                                                placeholder='entrez heure entree'
                                                 type="time"
                                                 name="heure_entree"
                                                 id="heure_entree"
@@ -268,7 +260,6 @@ function AddRdvNp() {
                                                Heure de sortie
                                             </label>
                                             <input
-                                                placeholder='entrez heure sortie'
                                                 type="time"
                                                 name="heure_sortie"
                                                 id="heure_sortie"
@@ -284,7 +275,6 @@ function AddRdvNp() {
                                                 Titre
                                             </label>
                                             <input
-                                                placeholder='entrez le titre'
                                                 type="text"
                                                 name="title"
                                                 id="title"
@@ -300,7 +290,6 @@ function AddRdvNp() {
                                                 Motif
                                             </label>
                                             <textarea
-                                                
                                                 name="motif"
                                                 id="motif"
                                                 required
@@ -336,4 +325,4 @@ function AddRdvNp() {
 
     );
 }
-export default AddRdvNp;
+export default RendezVous;
