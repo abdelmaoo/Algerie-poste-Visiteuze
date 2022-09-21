@@ -74,7 +74,7 @@ const Login = () => {
           <div className="split-screen">
               <div className="left font-poste">
                  <div className="Img1">
-                  <img src={Img1} alt="poste" width="700" height = "700" text-align="center"></img>
+                  <img src={Img1} alt="poste" width="620" height = "620" text-align="center"></img>
                  </div> 
               </div>
 

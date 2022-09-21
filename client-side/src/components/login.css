@@ -26,6 +26,7 @@
  .left{
   height: 200px;
   background: #1f589c;
+  
 }
 .left, .right {
   display: flex;
