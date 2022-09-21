@@ -8,8 +8,8 @@
 .split-screen body{
   padding: 0;
   margin: 0;
-  font-family: 'Montserrat', sans-serif;
   font-weight: 500;
+  position: fixed;
 }
 .split-screen a{
   text-decoration: none;
@@ -21,46 +21,52 @@
 .split-screen{
   display: flex;
   flex-direction: column;
+  position:relative;
 }
-.left{
+ .left{
   height: 200px;
   background: #1f589c;
 }
-
-
-
 .left, .right {
   display: flex;
+  
   justify-content: center;
   align-items: center;
 }
 .right{
   background:#eeeeee;
   background-size: cover;
+  
 }
 
-.left .Img1{
-    height: 800px;
-    width: 800px;
-    display: flex;
-    align-items: flex-end;
-    margin-left: 150px; 
+.left .img1{ 
+     width: 80%; 
+     display: block;
+   margin-left: 20px; 
+   margin-right: auto; 
+   width: 85%;
+  text-align: center; 
+   display: flex; 
+   align-items: center;  
+     margin-right: 300px;   
+    margin-bottom: 5%; 
 
 }
-.right .Img2{
-    height: 300px;
-    width: 300px;
+.copy .Img2{
+    
+    margin-bottom: 50px;
     display: flex;
     align-items: flex-end;
  
 }
+
+
 .right .copy{
-  color: black;
+  
   text-align: center;
+  margin-bottom: 50px;
 }
-.right .copy h2{
-  color: #1f589c;
-}
+
 
 .right form{
   width: 328px;
@@ -69,16 +75,17 @@
   display: block;
   width: 100%;
   box-sizing: border-box;
-  border-radius: 5px;
-  border: 1px solid #c4c4c4;
+  border-radius: 10px;
   padding: 1em;
   margin-bottom: 1.25rem;
-  font-size:  0.875rem;
+  font-size:  0.99rem; 
 }
 .split-screen label{
   display: block;
   margin-bottom: 0.5rem;
-  font-size: 0.75rem;
+  font-size: 1.4rem;
+  color:rgb(55 65 81);
+  margin-right: 10px;
 }
 
 .login-btn{
@@ -86,21 +93,15 @@
   display: block;
   width: 100%;
   background: #1f589c;
-  color: white;
+  color: #fff;
   font-weight: 700;
-  border: none;
+  border-radius: 10px;
   padding: 1rem;
-  font-size: 0.75rem;
+  font-size: 0.77rem;
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
-.login-btn:hover{
-  background: white;
-  color: black;
-  border: 2px solid black;
-  cursor: pointer;
-  transition: all 0.2s ease-in;
-}
+
 
 @media screen and (min-width: 900px) {
   .split-screen{

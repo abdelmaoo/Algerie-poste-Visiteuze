@@ -72,30 +72,28 @@ const Login = () => {
       return (
          
           <div className="split-screen">
-              <div className="left">
-                
-                <div className="Img1">
-                <img src={Img1} alt="poste" width = "500" height = "500"></img>
+              <div className="left font-poste">
+                 <div className="Img1">
+                  <img src={Img1} alt="poste" width="700" height = "700" text-align="center"></img>
+                 </div> 
               </div>
-                 
-              </div>
-              <div className="right">
+
+              <div className="right font-poste">
                   <form>
-                      
+                  <div className="copy">
                         <div className="Img2">
                       <img src={Img2} alt="poste" width = "350" height = "350" ></img>
                       </div>
-                      <section className="copy">
-                      <h2>Authentification</h2>
-                      </section>
+                  </div>
+                      <label>Nom d'utilisateur</label>
                       <div className="input-container name">
-                          <input placeholder="entrez votre nom d'utilisateur" onChange={(e) => {
+                          <input placeholder="Entrez votre nom d'utilisateur" onChange={(e) => {
                             setUsername(e.target.value);}} name="nom d'utilisateur" className='input' type="text"/>
                       </div>
-                    
+
                       <div className="input-container name">
-                          
-                          <input placeholder="entrez votre mot de passe" id="password"  onChange={(e) => {
+                          <label>Mot de passe</label>
+                          <input placeholder="Entrez votre mot de passe" id="password"  onChange={(e) => {
                             setPassword(e.target.value);}} name="password" className='input' type="password" />
                             
                           <i className="far fa-eye-slash"></i>

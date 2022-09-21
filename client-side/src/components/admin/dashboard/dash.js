@@ -97,7 +97,7 @@ function Dash() {
       }, []);
       
   return (
-    <div className='dash'>
+    <div className='dash '>
      
      <div className='sidebar'>
      <ul>
@@ -143,7 +143,7 @@ function Dash() {
     </div>
 
     <div  className='main'>
-     <div className='cards'>
+     <div className='cards font-poste'>
        <div className='card'>
             <div className='card-content'>
                 <div className='number'>125</div>
@@ -175,7 +175,7 @@ function Dash() {
             </div>
        </div>
       </div>
-      <div className='charts'>
+      <div className='charts font-poste'>
         <div className='chart'>
             <h2>Total des rendez-vous(durant 12 mois)</h2>
              <div className='barChart'>
