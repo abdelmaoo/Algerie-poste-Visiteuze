@@ -347,7 +347,7 @@ console.log("todaaay",day)
 
       
   return (
-    <div className='dash'>
+    <div className='dash '>
      
      <div className='sidebar'>
      <ul>
@@ -393,7 +393,7 @@ console.log("todaaay",day)
     </div>
 
     <div  className='main'>
-     <div className='cards'>
+     <div className='cards font-poste'>
        <div className='card'>
             <div className='card-content'>
                 <div className='number'>{rdvp}</div>
@@ -425,7 +425,7 @@ console.log("todaaay",day)
             </div>
        </div>
       </div>
-      <div className='charts'>
+      <div className='charts font-poste'>
         <div className='chart'>
             <h2>Total des rendez-vous(durant 12 mois)</h2>
              <div className='barChart'>
