@@ -50,7 +50,7 @@ function AddRdvP() {
     console.log(role, role == "receptioniste");
     if (role == "administrateur") {
         type_rendezvous = "RVP";
-    } else  {
+    } else {
         type_rendezvous = "RVNP";
     }
 
@@ -79,14 +79,11 @@ function AddRdvP() {
 
         let btn = document.getElementById("open-btn");
 
-        let frame = document.getElementById("frame");
-
         let modal_table = document.getElementById("modal_table");
 
         btn.onclick = function () {
             modal.style.display = "flex";
             modal_table.style.display = "none"
-            frame.classList.add('blur');
 
         }
 
@@ -94,10 +91,16 @@ function AddRdvP() {
             if (event.target == modal) {
                 modal.style.display = "none";
                 modal_table.style.display = "block";
-                frame.classList.remove('blur')
             }
         }
+
+        document.addEventListener("keyup", (e) => {
+            if (e.key == 'Enter' && modal_table.classList.contains("none")) {
+                addRVp()
+            }
+        })
     });
+
 
     return (
         <div className='font-poste mt-10'>
@@ -107,7 +110,7 @@ function AddRdvP() {
                 </button>
             </div>
 
-            <div className="fixed hidden inset-0 bg-gray-600 bg-opacity-50  overflow-y-auto h-full items-center justify-center" id="my-modal">
+            <div className="fixed hidden inset-0 bg-gray-600 bg-opacity-50  overflow-y-auto h-full items-center justify-center backdrop-blur-sm" id="my-modal">
                 <div className="relative p-6 sm:mx-12 md:mx-8  mx-auto lg:w-1/2 w-full shadow-lg rounded-md bg-gris " >
                     <div className="mt-5 sm:mt-0 px-8">
                         <div className="p-4 mb-2 sm:px-0 bg-jaune rounded-full mx-24">
