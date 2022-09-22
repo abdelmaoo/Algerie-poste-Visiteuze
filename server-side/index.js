@@ -515,6 +515,29 @@ app.get("/get_date5", (req, res) => {
           }
         }); });
 
+// update carte
+app.put("/carte",(req,res) =>{
+    //const idrdv = req.body.idrdv; 
+    const idrdv = req.body.idrdv; 
+    const numberchange = req.body.numberchange;
+  const update_etud ="UPDATE rendezvous SET numero_carte= ?, validation = 1 where id= ?";
+  db.query(update_etud,[numberchange,idrdv],(error,result)=>{
+   res.send(result);
+   console.log("carte updated",result)
+});
+});
+
+app.put("/hs",(req,res) =>{
+  //const idrdv = req.body.idrdv; 
+  const idrdv = req.body.idrdv2; 
+  const HS = req.body.HS;
+const update_etud ="UPDATE rendezvous SET heure_sortie= ?, validation = 2 where id= ?";
+db.query(update_etud,[HS,idrdv],(error,result)=>{
+ res.send(result);
+ console.log("hs updated",idrdv,HS)
+});
+});
+
 
 
         
