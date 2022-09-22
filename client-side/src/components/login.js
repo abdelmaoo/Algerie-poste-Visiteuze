@@ -104,7 +104,7 @@ const Login = () => {
                   <form>
                   <div className="copy">
                         <div className="Img2">
-                      <img src={Img2} alt="poste" width = "350" height = "350" ></img>
+                          <img src={Img2} alt="poste" width = "350" height = "350" ></img>
                       </div>
                   </div>
                       <label>Nom d'utilisateur</label>
@@ -128,34 +128,11 @@ const Login = () => {
                 }} type="button">Se connecter</button>
                   </form>
               </div>
+              
           </div>
-          <section className="copy">
-            <h2>Authentification</h2>
-          </section>
-          <div className="input-container name">
-            <input placeholder="entrez votre nom d'utilisateur" onChange={(e) => {
-              setUsername(e.target.value);
-            }} name="nom d'utilisateur" className='input' type="text" />
-          </div>
+         
+      )
+      }
 
-          <div className="input-container name">
-
-            <input placeholder="entrez votre mot de passe" id="password" onChange={(e) => {
-              setPassword(e.target.value);
-            }} name="password" className='input' type="password" />
-
-            <i className="far fa-eye-slash"></i>
-          </div>
-          <div>
-
-          </div>
-          <button className="login-btn" onClick={() => {
-            login()
-          }} type="button">Se connecter</button>
-        </form>
-      </div>
-    </div>
-  )
-}
 
 export default Login;
