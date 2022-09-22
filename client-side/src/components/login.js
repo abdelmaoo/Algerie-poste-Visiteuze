@@ -82,7 +82,7 @@ const Login = () => {
                   <form>
                   <div className="copy">
                         <div className="Img2">
-                      <img src={Img2} alt="poste" width = "350" height = "350" ></img>
+                          <img src={Img2} alt="poste" width = "350" height = "350" ></img>
                       </div>
                   </div>
                       <label>Nom d'utilisateur</label>
@@ -106,7 +106,9 @@ const Login = () => {
                 }} type="button">Se connecter</button>
                   </form>
               </div>
+              
           </div>
+          
       )
       }
 

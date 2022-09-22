@@ -349,48 +349,7 @@ console.log("todaaay",day)
   return (
     <div className='dash '>
      
-     <div className='sidebar'>
-     <ul>
-        <li>
-            <a href='#'>
-            
-                          <div>Dashboard</div>     
-            </a>
-        </li>
-        <li>
-            <a href='#'>
-            
-               <div>Rendez-vous planifier</div>     
-            </a>
-        </li>
-        <li>
-            <a href='#'>
-           
-               <div>Rendez-vous non planifier</div>     
-            </a>
-        </li>
-        <li>
-            <a href='#'>
-            
-               <div>Rendez-vous annuler</div>     
-            </a>
-        </li>
-        <li>
-            <a href='#'>
-            
-               <div>Parametres</div>     
-            </a>
-        </li>
-        <li>
-            <a href='#'>
-              
-               
-               
-               <div>Aider</div>     
-            </a>
-        </li>
-       </ul>  
-    </div>
+     
 
     <div  className='main'>
      <div className='cards font-poste'>
@@ -400,9 +359,7 @@ console.log("todaaay",day)
                 
                 <div className='card-name'>Rendez-vous planifier</div>
             </div>
-            <div className='icon-box'>
-               <i classe="fas fa-user-graduate"></i>
-            </div>
+            
        </div>
 
        <div className='card'>
@@ -410,9 +367,7 @@ console.log("todaaay",day)
                 <div className='number'>{rdvnp}</div>
                 <div className='card-name'>Rendez-vous non planifier</div>
             </div>
-            <div className='icon-box'>
-               <i classe="fas fa-user-graduate"></i>
-            </div>
+            
        </div>
 
        <div className='card'>
@@ -420,9 +375,7 @@ console.log("todaaay",day)
                 <div className='number'>{rdvan}</div>
                 <div className='card-name'>Rendez-vous annuler</div>
             </div>
-            <div className='icon-box'>
-               <i classe="fas fa-user-graduate"></i>
-            </div>
+            
        </div>
       </div>
       <div className='charts font-poste'>
@@ -433,7 +386,7 @@ console.log("todaaay",day)
             </div>
         </div>
         <div className='chart' id='doughant-chart'>
-          <h2>Rendez-vous planifier (durant 1 semaine)</h2>
+          <h2>Total rendez-vous  (durant 1 semaine)</h2>
            <div>
              <Bar options={cOptions} data={cData} />  
            </div>

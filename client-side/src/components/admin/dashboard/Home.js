@@ -7,7 +7,7 @@ import Dashboard from './dash'
 export default function Home() {
   return (
     <div>
-     <NavBar/>
+      <NavBar/> 
       
       <Dashboard/>
       
