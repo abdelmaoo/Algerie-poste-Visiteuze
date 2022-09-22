@@ -46,7 +46,7 @@ const Login = () => {
       console.log("first if")
       if (user.role==="administrateur"){
         console.log("admin",user)
-        history('/table')
+        history('/dashboard')
         console.log(user.role)
       }else if(user.role==="Receptioniste"){
         console.log("recep",user.role)

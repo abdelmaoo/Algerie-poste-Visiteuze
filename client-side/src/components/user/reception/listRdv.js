@@ -39,18 +39,18 @@ export default function ListRdv() {
   const addPdf = (self) => {
     let da_rdv = tab.find(t => t.id == self.target.dataset.id)
     console.log(da_rdv)
-    Axios.post('http://localhost:3001/document.pdf', {
-      // name: namee,
-      // direction: directione,
-      // date: datee,
-      // heure_entree: heure_entreee,
-      // title: titlee,
-      // motif: motife,
-      // type_rendezvous: type_rendezvouse,
-      rdv: da_rdv
+    Axios.post('http://localhost:3001/document', {
+       name: da_rdv.name,
+       direction: da_rdv.direction,
+       date: da_rdv.date,
+       heure_entree: da_rdv.heure_entree,
+       title: da_rdv.titre,
+       motif: da_rdv.motif,
+       type_rendezvous: da_rdv.type_rendezvous,
+       numero_carte: da_rdv.numer_carte,
     }).then((response) => {
       console.log(response);
-      console.log(user)
+      console.log("daaaaaaaaa",da_rdv.direction)
     }).catch((err) => console.log(err));
   };
 
@@ -158,7 +158,7 @@ export default function ListRdv() {
                             Valider la sortie
                           </button>
                           <button onClick={addPdf} data-id={post.id} className='bg-bleu text-white rounded-md px-8 py-2 mx-2'>
-                            Export
+                            Export 
                           </button>
                         </div>
 
