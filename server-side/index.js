@@ -87,7 +87,7 @@ app.post("/rdv",(req,res) =>{
   const heure_sortie = req.body.heure_sortie;
   const title = req.body.title;
   const motif = req.body.motif;
-  const validation = 0;
+  const validation = req.body.validation;
   const type_rendezvous = req.body.type_rendezvous;
   const auteur = req.body.auteur;
   const typee = req.body.typee;
@@ -164,14 +164,15 @@ app.get('/document.pdf', async (req, res) => {
   // });
   const name =req.body.name;
   const direction = req.body.direction;
-  const number = 15;
+  const number = req.body.numero_carte;
   const date = req.body.date;
   const heure_entree = req.body.heure_entree;
   const title = req.body.title;
   const motif = req.body.motif;
   const type_rendevous = req.body.type_rendevous;
+
   const doc = new PDFDocument();
-  //let name = "anoir"
+  console.log(name)
   
   // vv The following line is the one you're looking for
   doc.pipe(res);
@@ -259,6 +260,7 @@ app.get('/document.pdf', async (req, res) => {
   res.writeHead(200, {
     'Content-Type': 'application/pdf',
   });
+
 });
 
 // Get count RVP

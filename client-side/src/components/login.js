@@ -1,11 +1,11 @@
-import React, {useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import './login.css'
 import Img1 from "./images/logImg.png";
 import Img2 from "./images/poste.png";
-import { Link, Redirect,useHistory, useLocation, BrowserRouter } from "react-router-dom";
-import Axios from "axios"; 
-import axios from "axios"; 
-import {useNavigate, useRoutes} from 'react-router-dom'; 
+import { Link, Redirect, useHistory, useLocation, BrowserRouter } from "react-router-dom";
+import Axios from "axios";
+import axios from "axios";
+import { useNavigate, useRoutes } from 'react-router-dom';
 
 
 const Login = () => {
@@ -21,54 +21,76 @@ const Login = () => {
   const user = JSON.parse(localStorage.getItem("user") || '{}');
 
 
-//   function haya() {
-//     if(user){
-//       if (user.role==="administrateur"){
-//         history("/rdv")
-//         console.log(user)
-//         console.log(user.role)
-//       }else if(user.role==="receptioniste"){
-//         history("/rdv")
-//         console.log(user.role)
-  
-//       }
-//     }else{
-//       console.log("something went wrong", role)
-//       history("/");
-//     }
-// }
+  //   function haya() {
+  //     if(user){
+  //       if (user.role==="administrateur"){
+  //         history("/rdv")
+  //         console.log(user)
+  //         console.log(user.role)
+  //       }else if(user.role==="receptioniste"){
+  //         history("/rdv")
+  //         console.log(user.role)
+
+  //       }
+  //     }else{
+  //       console.log("something went wrong", role)
+  //       history("/");
+  //     }
+  // }
 
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("user") || '{}');
     console.log(user);
-    if(user){
+    if (user) {
       console.log("first if")
+
       if (user.role==="administrateur"){
         console.log("admin",user)
-        history('/table')
+        history('/dashboard')
         console.log(user.role)
-      }else if(user.role==="Receptioniste"){
-        console.log("recep",user.role)
+      } else if (user.role === "Receptioniste") {
+        console.log("recep", user.role)
         history('/rdv')
       }
-    }else{
+    } else {
       console.log("something went wrong", role)
       history('/');
     }
-  },[role])
-  
-  const login = () => {
-      Axios.post("http://localhost:3001/l", {
-        username: username,
-        password: password,
-      }).then((response) => {
-        console.log(response);
-        localStorage.setItem('user',JSON.stringify(response.data[0])) ;
-        setRole(response.data[0].role);             
-      })
-    }
+  }, [role])
 
+  const login = () => {
+    Axios.post("http://localhost:3001/l", {
+      username: username,
+      password: password,
+    }).then((response) => {
+      console.log(response);
+      localStorage.setItem('user', JSON.stringify(response.data[0]));
+      setRole(response.data[0].role);
+    })
+  }
+
+  document.addEventListener("keyup", (e) => {
+    if (e.key == 'Enter') {
+      login()  
+    }
+  })
+
+ // return (
+//
+//    <div className="split-screen">
+//      <div className="left">
+//
+//        <div className="Img1">
+//          <img src={Img1} alt="poste" width="500" height="500"></img>
+//        </div>
+//
+//      </div>
+//      <div className="right">
+//        <form>
+
+//          <div className="Img2">
+//            <img src={Img2} alt="poste" width="350" height="350" ></img>
       return (
          
           <div className="split-screen">
@@ -108,8 +130,9 @@ const Login = () => {
               </div>
               
           </div>
-          
+         
       )
       }
+
 
 export default Login;

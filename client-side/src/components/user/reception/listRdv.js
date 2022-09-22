@@ -39,18 +39,18 @@ export default function ListRdv() {
   const addPdf = (self) => {
     let da_rdv = tab.find(t => t.id == self.target.dataset.id)
     console.log(da_rdv)
-    Axios.post('http://localhost:3001/document.pdf', {
-      // name: namee,
-      // direction: directione,
-      // date: datee,
-      // heure_entree: heure_entreee,
-      // title: titlee,
-      // motif: motife,
-      // type_rendezvous: type_rendezvouse,
-      rdv: da_rdv
+    Axios.post('http://localhost:3001/document', {
+       name: da_rdv.name,
+       direction: da_rdv.direction,
+       date: da_rdv.date,
+       heure_entree: da_rdv.heure_entree,
+       title: da_rdv.titre,
+       motif: da_rdv.motif,
+       type_rendezvous: da_rdv.type_rendezvous,
+       numero_carte: da_rdv.numer_carte,
     }).then((response) => {
       console.log(response);
-      console.log(user)
+      console.log("daaaaaaaaa",da_rdv.direction)
     }).catch((err) => console.log(err));
   };
 
@@ -88,13 +88,18 @@ export default function ListRdv() {
     }
   }
 
+  let day = new Date()
+  day = day.toLocaleDateString()
+
+  tab.map((rdv)=>{
+    rdv.date = new Date(rdv.date).toLocaleDateString()
+  })
 
   let rdvs = {
-    "a venir": tab.filter(rdv => rdv.validation == 0),
-    "en cours": tab.filter(rdv => rdv.validation == 1),
-    "termines": tab.filter(rdv => rdv.validation == 2),
+    "a venir": tab.filter(rdv => rdv.validation == 0 && rdv.date == day),
+    "en cours": tab.filter(rdv => rdv.validation == 1 && rdv.date == day),
+    "termines": tab.filter(rdv => rdv.validation == 2 && rdv.date == day),
   }
-  console.log(rdvs)
 
   return (
     <div className='font-poste mt-10'>
@@ -118,19 +123,19 @@ export default function ListRdv() {
               </Tab>
             ))}
           </Tab.List>
-          <Tab.Panels className="mt-2">
+          <Tab.Panels className="mt-4">
             {Object.values(rdvs).map((posts, idx) => (
               <Tab.Panel
                 key={idx}
                 className={classNames(
-                  'rounded-xl bg-white p-3',
+                  'rounded-xl bg-gris ',
                   'ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2'
                 )}
               >
                 {posts.map((post) => (
                   <div
                     key={post.id}
-                    className="relative rounded-md mx-8 my-3 hover:bg-gray-100 grid grid-cols-3 grid-rows-3 gap-2"
+                    className="relative rounded-md py-4 px-12 mx-2 mb-4 bg-white grid grid-cols-3 grid-rows-3 gap-2"
                   >
                     <div className="text-2xl place-self-start font-medium col-span-2 row-span-2 font-semibold my-auto">
                       {post.nom} - {post.direction}
@@ -139,7 +144,7 @@ export default function ListRdv() {
                     <div className={classNames('row-span-2 my-auto font-semibold place-self-center',
                       post.heure_sortie ? 'row-span-1' : 'row-span-2')}>Heure d'entree: {post.heure_entree} </div>
 
-                    {post.heure_sortie ? <div className='row-span-1 my-auto font-semibold place-self-center'>Heure de sortie: {post.heure_sortie} </div> : ''}
+                    {post.heure_sortie ? <div className='row-span-1 my-auto font-semibold place-self-center '>Heure de sortie: {post.heure_sortie} </div> : ''}
 
 
                     <div className='col-span-1 place-self-start'>Date: {post.date}</div>
@@ -158,13 +163,10 @@ export default function ListRdv() {
                             Valider la sortie
                           </button>
                           <button onClick={addPdf} data-id={post.id} className='bg-bleu text-white rounded-md px-8 py-2 mx-2'>
-                            Export
+                            Export 
                           </button>
                         </div>
-
                     }
-
-
                   </div>
                 ))}
               </Tab.Panel>
