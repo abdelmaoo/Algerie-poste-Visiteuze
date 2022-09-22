@@ -15,6 +15,9 @@ export default function ListRdv() {
   let [infos, setInfos] = useState([]);
   let [todos, setTodos] = useState([{}]);
   const user = JSON.parse(localStorage.getItem('user'));
+  const [numberchange, setNumberchange] = useState('');
+  const [HS, setHS] = useState('');
+
   // const id = user.id;
   const apiget5 = 'http://localhost:3001/get_rdv'
 
@@ -63,16 +66,42 @@ export default function ListRdv() {
     document.getElementById("sortie-modal").style.display = "flex"
     document.getElementById("sor-btn").dataset.rdv = self.target.dataset.sor
   };
-
+  let idrdv;
   const entrerCN = (self) => {
-    let idrdv = self.target.dataset.rdv
+    console.log("tanessime2")
+    idrdv = self.target.dataset.rdv
     console.log(idrdv)
+    return idrdv
   };
 
-  const entrerHS = (self) => {
-    let idrdv = self.target.dataset.rdv
-    console.log(idrdv)
-  };
+  const addcarte = (self) => {
+    console.log("tanessime")
+    Axios.put("http://localhost:3001/carte", {
+        idrdv: idrdv,
+        numberchange: numberchange,
+    }).then((response) => {
+        console.log(response);
+        console.log(idrdv, numberchange)
+    }).catch((err) => console.log(err));
+};
+let idrdv2;
+const entrerHS = (self) => {
+  idrdv2 = self.target.dataset.rdv
+  console.log(idrdv2)
+};
+
+
+const addhs = (self) => {
+  console.log("tanessime")
+  Axios.put("http://localhost:3001/hs", {
+      idrdv2: idrdv2,
+      HS: HS,
+  }).then((response) => {
+      console.log(response);
+      console.log("idddd",idrdv2,"sortiiiiee", HS)
+  }).catch((err) => console.log(err));
+};
+
 
 
   window.onclick = function (event) {
@@ -186,11 +215,19 @@ export default function ListRdv() {
               type="text"
               name="cn"
               id="cn"
+              onChange={(e) => setNumberchange(e.target.value)}
               required
               autoComplete="off"
               className="mt-1 block w-full rounded-md border border-gray-300 h-6 p-4"
             />
-            <button className='bg-bleu text-white rounded-md px-8 py-2 m-2 place-self-end' id="cn-btn" onClick={entrerCN}>
+            <button className='bg-bleu text-white rounded-md px-8 py-2 m-2 place-self-end' id="cn-btn" onClick={
+                 entrerCN
+            }>
+              Inserer numero carte
+            </button>
+            <button className='bg-bleu text-white rounded-md px-8 py-2 m-2 place-self-end' id="cn-btn" onClick={
+                 addcarte
+            }>
               Continuer
             </button>
           </div>
@@ -208,11 +245,17 @@ export default function ListRdv() {
               type="time"
               name="hs"
               id="hs"
+              onChange={(e) => setHS(e.target.value)}
               required
               autoComplete="off"
               className="mt-1 block w-full rounded-md border border-gray-300 p-4"
             />
-            <button className='bg-bleu text-white rounded-md px-8 py-2 m-2 place-self-end' id='sor-btn' onClick={entrerHS}>
+            <button className='bg-bleu text-white rounded-md px-8 py-2 m-2 place-self-end' id="sor-btn" onClick={
+                 entrerHS
+            }>
+              Inserer heure sortie
+            </button>
+            <button className='bg-bleu text-white rounded-md px-8 py-2 m-2 place-self-end' id='sor-btn' onClick={addhs}>
               Continuer
             </button>
           </div>
