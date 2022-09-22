@@ -8,7 +8,8 @@ import { useNavigate } from 'react-router-dom';
 let navigation = [
   { name: 'Dashboard', href: '/dashboard', current: false },
   { name: 'Rendez-vous', href: '/rdvs', current: false },
-  { name: 'Employes', href: '/table', current: false }
+  { name: 'Employes', href: '/table', current: false },
+  { name: 'Historique', href: '/history', current: false }
 ]
 
 let path = window.location.pathname;
