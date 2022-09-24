@@ -538,6 +538,17 @@ db.query(update_etud,[HS,idrdv],(error,result)=>{
 });
 });
 
+app.put("/deleteacc",(req,res) =>{
+  //const idrdv = req.body.idrdv; 
+  const iddel = req.body.iddel; 
+const update_del ="DELETE from auth where id= ?";
+db.query(update_del,[iddel],(error,result)=>{
+ res.send(result);
+ console.log("accccc updated",iddel)
+});
+});
+
+
 
 
         
