@@ -123,6 +123,7 @@ function ListRdv() {
 
   const editRDV = (self) => {
     let da_rdv = tab2.find(t => t.id == self.target.dataset.id)
+    console.log(da_rdv)
     edit_modal.style.display = "flex"
     document.getElementById('name').value = da_rdv.nom
     document.getElementById('heure_entree').value = da_rdv.heure_entree

@@ -23,6 +23,29 @@ function List() {
         getInfos();
       }, []);
 
+let iddel;
+      const valAcc = (self) => {
+        iddel = self.target.dataset.id
+        console.log(iddel)
+      };
+
+      const del = (self) => {
+        iddel = self.target.dataset.id;
+        console.log(iddel)
+        Axios.put("http://localhost:3001/deleteacc", {
+            iddel: iddel,
+        }).then((response) => {
+            console.log(response);
+            console.log("idddd",iddel)
+        }).catch((err) => console.log(err));
+      };
+
+      const del2 = () =>{
+        del();
+
+      }
+
+      
     return (
         <div>
             <NavBar />
@@ -30,7 +53,7 @@ function List() {
             <div className="w-full max-w-4xl px-2 py-4 sm:px-0 mx-auto font-poste" id='modal_list'>
             {infos.map(user =>
                 
-                <div className='rounded-xl my-2 bg-white p-3 ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2'>
+                <div className='rounded-xl my-2 bg-white p-3 ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2' >
                     <div
                         className="relative rounded-md mx-8 my-3 grid grid-cols-3 grid-rows-3 gap-2"
                     >
@@ -43,7 +66,9 @@ function List() {
                         <div className='col-span-1 place-self-start'>{user.username} - {user.password}</div>
 
                         <div className='col-span-2 place-self-end'>
-                            <button className='bg-red-500 text-white rounded-md px-8 py-2 '>
+                            <button className='bg-red-500 text-white rounded-md px-8 py-2 ' id='deletee'  data-id={user.id} onClick={
+                 del
+            }>
                                 Supprimer
                             </button>
                         </div>
