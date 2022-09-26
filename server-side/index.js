@@ -5,81 +5,123 @@ const cors = require("cors");
 var bp = require('body-parser')
 const PDFDocument = require('pdfkit');
 const blobStream = require('blob-stream');
-var moment = require('moment');
+const { query } = require("express");
 
 app.use(cors({
-    origin: ["http://localhost:3000"],
-    methods: ["GET", "POST","DELETE","PUT"],
-      credentials: true,}));
-  app.use(express.json());
-  app.use(bp.urlencoded({ extended: false }))
-  app.use(bp.json())
+  origin: ["http://localhost:3000"],
+  methods: ["GET", "POST", "DELETE", "PUT"],
+  credentials: true,
+}));
+app.use(express.json());
+app.use(bp.urlencoded({ extended: false }))
+app.use(bp.json())
 
 
-  const db = mysql.createConnection({
-    user: "root",
-    host: "localhost", 
-    password: "",
-    database: "poste",
-    port: 3325
-  });
-  
-
-  db.connect((err) => {
-      if (!err)
-          console.log('DB connection succeded.');
-      else
-          console.log('DB connection failed \n Error : ' + JSON.stringify(err, undefined, 2));
-  });
-  
-  app.listen(3001, () => {
-      console.log("running server");
-  });
+const db = mysql.createConnection({
+  user: "root",
+  host: "localhost",
+  password: "",
+  database: "poste",
+  port: 3325
+});
 
 
+db.connect((err) => {
+  if (!err)
+    console.log('DB connection succeded.');
+  else
+    console.log('DB connection failed \n Error : ' + JSON.stringify(err, undefined, 2));
+});
 
-  //authentification
+app.listen(3001, () => {
+  console.log("running server");
+});
+
+// db.query("CREATE DATABASE IF NOT EXISTS poste;", (err, res) => {
+//   if (err) throw err;
+//   console.log('DATABASE CREATED')
+// });
+
+// table_auth = `CREATE TABLE IF NOT EXISTS auth (
+//     id int(11) NOT NULL,
+//     username varchar(50) NOT NULL UNIQUE,
+//     password varchar(20) NOT NULL,
+//     nom varchar(20) NOT NULL,
+//     prenom varchar(20) NOT NULL,
+//     role varchar(20) NOT NULL,
+//     PRIMARY KEY (id),
+//     UNIQUE KEY username (username)
+//   ) DEFAULT CHARSET=utf8;
+//     `
+// db.query(table_auth, (err, res) => {
+//   if (err) throw err;
+//   console.log('AUTH TABLE CREATED')
+// });
+
+// table_rdv = `CREATE TABLE IF NOT EXISTS rendezvous (
+//     id int(11) NOT NULL,
+//     nom varchar(30) NOT NULL,
+//     numero_carte double DEFAULT NULL UNIQUE,
+//     direction varchar(15) NOT NULL,
+//     date date NOT NULL,
+//     heure_entree time NOT NULL,
+//     heure_sortie time DEFAULT NULL,
+//     titre varchar(30) NOT NULL,
+//     motif varchar(500) NOT NULL,
+//     validation int(11) NOT NULL,
+//     type_rendezvous varchar(15) NOT NULL,
+//     auteur varchar(30) NOT NULL,
+//     PRIMARY KEY (id)
+//     ) DEFAULT CHARSET=utf8;
+//     `
+// db.query(table_rdv, (err, res) => {
+//   if (err) throw err;
+//   console.log('RDV TABLE CREATED')
+// });
+
+//authentification
 app.post("/l", (req, res) => {
-    const username = req.body.username;
-    const password = req.body.password;
-    const role = req.body.role;
-    console.log(username)
-    console.log("baack")
-    db.query(
-      "SELECT * FROM auth WHERE username = ? AND password = ?",
-      [username,password],
-      (err, result) => {
-        if(err){
-        res.send({err:err})}
-  
-         if (result) {
-            res.send(result);
-            console.log(result)
-            console.log("baaaack", username)
-          } else {
-            res.send({ message: "Wrong username/password combination!" });
-          }
-            }
-    );
-          })
+  const username = req.body.username;
+  const password = req.body.password;
+  const role = req.body.role;
+  console.log(username)
+  console.log("baack")
+  db.query(
+    "SELECT * FROM auth WHERE username = ? AND password = ?",
+    [username, password],
+    (err, result) => {
+      if (err) {
+        res.send({ err: err })
+      }
+
+      if (result) {
+        res.send(result);
+        console.log(result)
+        console.log("baaaack", username)
+      } else {
+        res.send({ message: "Wrong username/password combination!" });
+      }
+    }
+  );
+})
 
 // add user
-          app.post("/users",(req,res) =>{
-            const nom =req.body.name;
-            const prenom = req.body.surname;
-            const username = req.body.username;
-            const password = req.body.password;
-            const role = req.body.role;
-            const insert_grp = "INSERT INTO auth (username,password,nom,prenom,role) VALUES (?,?,?,?,?)"
-            db.query(insert_grp,[username,password,nom,prenom,role],(error,result)=>{
-              res.send(result);
-              console.log("baaaaaack", nom)
-          });
-          })
+app.post("/users", (req, res) => {
+  const nom = req.body.name;
+  const prenom = req.body.surname;
+  const username = req.body.username;
+  const password = req.body.password;
+  const role = req.body.role;
+  const insert_grp = "INSERT INTO auth (username,password,nom,prenom,role) VALUES (?,?,?,?,?)"
+  db.query(insert_grp, [username, password, nom, prenom, role], (error, result) => {
+    res.send(result);
+    console.log("baaaaaack", nom)
+  });
+})
 
 // add RVN
-app.post("/rdv",(req,res) =>{
-  const name =req.body.name;
+app.post("/rdv", (req, res) => {
+  const name = req.body.name;
   const direction = req.body.direction;
   const number = req.body.number;
   const date = req.body.date;
@@ -93,13 +135,14 @@ app.post("/rdv",(req,res) =>{
   const typee = req.body.typee;
   if (heure_entree > heure_sortie) {
     console.log(heure_entree > heure_sortie)
-  }else{
-  const insert_grp = "INSERT INTO rendezvous (nom,numero_carte,direction,date,heure_entree,heure_sortie,titre,motif,validation,type_rendezvous,auteur) VALUES (?,?,?,?,?,?,?,?,?,?,?)"
-  db.query(insert_grp,[name,number,direction,date,heure_entree,heure_sortie,title,motif,validation,type_rendezvous,auteur],(error,result)=>{
-    res.send(result);
-    console.log("baaaaaack",name,number,direction,date,heure_entree,heure_sortie,title,motif,validation,type_rendezvous,auteur)
-    console.log(heure_entree > heure_sortie)
-});}
+  } else {
+    const insert_grp = "INSERT INTO rendezvous (nom,numero_carte,direction,date,heure_entree,heure_sortie,titre,motif,validation,type_rendezvous,auteur) VALUES (?,?,?,?,?,?,?,?,?,?,?)"
+    db.query(insert_grp, [name, number, direction, date, heure_entree, heure_sortie, title, motif, validation, type_rendezvous, auteur], (error, result) => {
+      res.send(result);
+      console.log("baaaaaack", name, number, direction, date, heure_entree, heure_sortie, title, motif, validation, type_rendezvous, auteur)
+      console.log(heure_entree > heure_sortie)
+    });
+  }
 })
 
 // Get RDVs
@@ -112,11 +155,12 @@ app.get("/get_rdv", async (req, res) => {
       console.log("ACCEPTmodddddddddd");
       res.send(result);
     }
-  }); });
+  });
+});
 
-  //"SELECT id,nom,direction,date,heure_entree,heure_sortie,tite,motif,validation,type_rendevous,auteur FROM rendezvous"
+//"SELECT id,nom,direction,date,heure_entree,heure_sortie,tite,motif,validation,type_rendevous,auteur FROM rendezvous"
 // Get accounts
-app.get("/get_account",(req, res) => {
+app.get("/get_account", (req, res) => {
   db.query("SELECT * FROM auth", (err, result) => {
     if (err) {
       console.log(err);
@@ -125,11 +169,12 @@ app.get("/get_account",(req, res) => {
       console.log("kidayrinnn");
       res.send(result);
     }
-  }); });
+  });
+});
 
-  // add RVP
-app.post("/rdvp",(req,res) =>{
-  const name =req.body.name;
+// add RVP
+app.post("/rdvp", (req, res) => {
+  const name = req.body.name;
   const direction = req.body.direction;
   const number = null;
   const date = req.body.date;
@@ -142,10 +187,10 @@ app.post("/rdvp",(req,res) =>{
   const auteur = req.body.auteur;
   const typee = req.body.typee;
   const insert_grp = "INSERT INTO rendezvous (nom,numero_carte,direction,date,heure_entree,heure_sortie,titre,motif,validation,type_rendezvous,auteur) VALUES (?,?,?,?,?,?,?,?,?,?,?)"
-  db.query(insert_grp,[name,number,direction,date,heure_entree,heure_sortie,title,motif,validation,type_rendezvous,auteur],(error,result)=>{
+  db.query(insert_grp, [name, number, direction, date, heure_entree, heure_sortie, title, motif, validation, type_rendezvous, auteur], (error, result) => {
     res.send(result);
     console.log(error)
-    console.log("baaaaaack rvp",name,number,direction,date,heure_entree,heure_sortie,title,motif,validation,type_rendezvous,auteur)
+    console.log("baaaaaack rvp", name, number, direction, date, heure_entree, heure_sortie, title, motif, validation, type_rendezvous, auteur)
   });
 })
 
@@ -162,7 +207,7 @@ app.get('/document.pdf', async (req, res) => {
   //     console.log(nom)
   //   }
   // });
-  const name =req.body.name;
+  const name = req.body.name;
   const direction = req.body.direction;
   const number = req.body.numero_carte;
   const date = req.body.date;
@@ -173,86 +218,86 @@ app.get('/document.pdf', async (req, res) => {
 
   const doc = new PDFDocument();
   console.log(name)
-  
+
   // vv The following line is the one you're looking for
   doc.pipe(res);
 
-  doc.image('C:/Users/user/Desktop/poste/client-side/src/components/images/poste.png', 0, 10, {width: 300})
+  doc.image('C:/Users/user/Desktop/poste/client-side/src/components/images/poste.png', 0, 10, { width: 300 })
     .moveDown()
     .moveDown()
     .moveDown()
     .moveDown()
-     .font('Helvetica-Bold').text('\n Bon de visite \n', {
+    .font('Helvetica-Bold').text('\n Bon de visite \n', {
       align: 'center',
-     })
-     .moveDown()
-     .moveDown()
-     .moveDown()
-     .moveDown()
+    })
+    .moveDown()
+    .moveDown()
+    .moveDown()
+    .moveDown()
     .text(`Nom: ${name}`, {
-  width: 410,
-  align: 'left'
-}
-) 
-.moveDown()
-.moveDown()
-.moveDown()
-.text(`Numero de carte: ${number}`, {
-  width: 410,
-  align: 'left'
-}
-).moveDown()
-.moveDown()
-.moveDown()
-.text(`Direction: ${direction}`, {
-  width: 410,
-  align: 'left'
-}
-).moveDown()
-.moveDown()
-.moveDown()
-.text(`Type de rendez vous: ${type_rendevous}`, {
-  width: 410,
-  align: 'left'
-}
-).moveDown()
-.moveDown()
-.moveDown()
-.text(`Date: ${date}`, {
-  width: 410,
-  align: 'left'
-}
-).moveDown()
-.moveDown()
-.moveDown()
-.text(`Heure d\'entree: ${heure_entree}`, {
-  width: 410,
-  align: 'left'
-}
-).moveDown()
-.moveDown()
-.moveDown()
-.text('Heure de sortie:', {
-  width: 410,
-  align: 'left'
-}
-).moveDown()
-.moveDown()
-.moveDown()
-.text(`Titre: ${title}`, {
-  width: 410,
-  align: 'left'
-}
-).moveDown()
-.moveDown()
-.moveDown()
-.text(`Motif: ${motif}`, {
-  width: 410,
-  align: 'left'
-}
-).moveDown()
-.moveDown()
-.moveDown()
+      width: 410,
+      align: 'left'
+    }
+    )
+    .moveDown()
+    .moveDown()
+    .moveDown()
+    .text(`Numero de carte: ${number}`, {
+      width: 410,
+      align: 'left'
+    }
+    ).moveDown()
+    .moveDown()
+    .moveDown()
+    .text(`Direction: ${direction}`, {
+      width: 410,
+      align: 'left'
+    }
+    ).moveDown()
+    .moveDown()
+    .moveDown()
+    .text(`Type de rendez vous: ${type_rendevous}`, {
+      width: 410,
+      align: 'left'
+    }
+    ).moveDown()
+    .moveDown()
+    .moveDown()
+    .text(`Date: ${date}`, {
+      width: 410,
+      align: 'left'
+    }
+    ).moveDown()
+    .moveDown()
+    .moveDown()
+    .text(`Heure d\'entree: ${heure_entree}`, {
+      width: 410,
+      align: 'left'
+    }
+    ).moveDown()
+    .moveDown()
+    .moveDown()
+    .text('Heure de sortie:', {
+      width: 410,
+      align: 'left'
+    }
+    ).moveDown()
+    .moveDown()
+    .moveDown()
+    .text(`Titre: ${title}`, {
+      width: 410,
+      align: 'left'
+    }
+    ).moveDown()
+    .moveDown()
+    .moveDown()
+    .text(`Motif: ${motif}`, {
+      width: 410,
+      align: 'left'
+    }
+    ).moveDown()
+    .moveDown()
+    .moveDown()
     .font('Times-Roman', 13);
 
   doc.end();
@@ -273,285 +318,305 @@ app.get("/get_nbrrdvp", (req, res) => {
       console.log(result);
       console.log("ACCEPT RVP");
     }
-  }); });
+  });
+});
 
-  // Get count RVNP
-  app.get("/get_nbrrdvnp", (req, res) => {
-    db.query("SELECT count(*) as value FROM rendezvous WHERE type_rendezvous ='RVNP'", (err, result) => {
-      if (err) {
-        console.log(err);
-      } else {
-        res.send(result);
-        console.log(result);
-        console.log("ACCEPT RVNP");
-      }
-    }); });
+// Get count RVNP
+app.get("/get_nbrrdvnp", (req, res) => {
+  db.query("SELECT count(*) as value FROM rendezvous WHERE type_rendezvous ='RVNP'", (err, result) => {
+    if (err) {
+      console.log(err);
+    } else {
+      res.send(result);
+      console.log(result);
+      console.log("ACCEPT RVNP");
+    }
+  });
+});
 
-    // Get count RVAN
-    app.get("/get_nbrrdvan", (req, res) => {
-      db.query("SELECT count(*) as value FROM rendezvous WHERE type_rendezvous ='RVAN'", (err, result) => {
-        if (err) {
-          console.log(err);
-        } else {
-          res.send(result);
-          console.log(result);
-          console.log("ACCEPT RVAN");
-        }
-      }); });
-    
-      
-      function convertday(str,n){
-        var d = new Date(str)
-        mnth = ("0" + (d.getMonth() + 1)).slice(-2),
-        day = ("0" + d.getDate()).slice(-2);
-        return [d.getFullYear(), mnth, day-n].join("/");
-      }
+// Get count RVAN
+app.get("/get_nbrrdvan", (req, res) => {
+  db.query("SELECT count(*) as value FROM rendezvous WHERE type_rendezvous ='RVAN'", (err, result) => {
+    if (err) {
+      console.log(err);
+    } else {
+      res.send(result);
+      console.log(result);
+      console.log("ACCEPT RVAN");
+    }
+  });
+});
+
+
+function convertday(str, n) {
+  var d = new Date(str)
+  mnth = ("0" + (d.getMonth() + 1)).slice(-2),
+    day = ("0" + d.getDate()).slice(-2);
+  return [d.getFullYear(), mnth, day - n].join("/");
+}
 
 // Get count Date1
 app.get("/get_date", (req, res) => {
   date1 = new Date();
-  db.query("SELECT count(*) as value FROM rendezvous WHERE date = ?",convertday(date1.toLocaleDateString(),0), (err, result) => {
+  db.query("SELECT count(*) as value FROM rendezvous WHERE date = ?", convertday(date1.toLocaleDateString(), 0), (err, result) => {
     if (err) {
       console.log(err);
     } else {
       res.send(result);
       console.log(result);
-      console.log("ACCEPT date", convertday(date1.toLocaleDateString(),1));
+      console.log("ACCEPT date", convertday(date1.toLocaleDateString(), 1));
     }
-  }); });
+  });
+});
 
 //Get count Date2
 app.get("/get_date2", (req, res) => {
   date1 = new Date();
-  db.query("SELECT count(*) as value FROM rendezvous WHERE date = ?",convertday(date1.toLocaleDateString(),1), (err, result) => {
+  db.query("SELECT count(*) as value FROM rendezvous WHERE date = ?", convertday(date1.toLocaleDateString(), 1), (err, result) => {
     if (err) {
       console.log(err);
     } else {
       res.send(result);
       console.log(result);
-      console.log("ACCEPT date2", convertday(date1.toLocaleDateString(),1));
+      console.log("ACCEPT date2", convertday(date1.toLocaleDateString(), 1));
     }
-  }); });
+  });
+});
 
-  //Get count Date3
+//Get count Date3
 app.get("/get_date3", (req, res) => {
   date1 = new Date();
-  db.query("SELECT count(*) as value FROM rendezvous WHERE date = ?",convertday(date1.toLocaleDateString(),2), (err, result) => {
+  db.query("SELECT count(*) as value FROM rendezvous WHERE date = ?", convertday(date1.toLocaleDateString(), 2), (err, result) => {
     if (err) {
       console.log(err);
     } else {
       res.send(result);
       console.log(result);
-      console.log("ACCEPT date3", convertday(date1.toLocaleDateString(),2));
+      console.log("ACCEPT date3", convertday(date1.toLocaleDateString(), 2));
     }
-  }); });
-    //Get count Date4
+  });
+});
+//Get count Date4
 app.get("/get_date4", (req, res) => {
   date1 = new Date();
-  db.query("SELECT count(*) as value FROM rendezvous WHERE date = ?",convertday(date1.toLocaleDateString(),3), (err, result) => {
+  db.query("SELECT count(*) as value FROM rendezvous WHERE date = ?", convertday(date1.toLocaleDateString(), 3), (err, result) => {
     if (err) {
       console.log(err);
     } else {
       res.send(result);
       console.log(result);
-      console.log("ACCEPT date4", convertday(date1.toLocaleDateString(),3));
+      console.log("ACCEPT date4", convertday(date1.toLocaleDateString(), 3));
     }
-  }); });
-      //Get count Date5
+  });
+});
+//Get count Date5
 app.get("/get_date5", (req, res) => {
   date1 = new Date();
-  db.query("SELECT count(*) as value FROM rendezvous WHERE date = ?",convertday(date1.toLocaleDateString(),4), (err, result) => {
+  db.query("SELECT count(*) as value FROM rendezvous WHERE date = ?", convertday(date1.toLocaleDateString(), 4), (err, result) => {
     if (err) {
       console.log(err);
     } else {
       res.send(result);
       console.log(result);
-      console.log("ACCEPT date5", convertday(date1.toLocaleDateString(),4));
+      console.log("ACCEPT date5", convertday(date1.toLocaleDateString(), 4));
     }
-  }); });
+  });
+});
 
-  // get count month 1
-  app.get("/get_month1", (req, res) => {
-    date1 = new Date();
-    db.query("SELECT count(*) as value FROM rendezvous WHERE MONTH(date) = ?",date1.getMonth() + 1, (err, result) => {
-      if (err) {
-        console.log(err);
-      } else {
-        res.send(result);
-        console.log(result);
-        console.log("ACCEPT month1", date1.getMonth());
-      }
-    }); });
-      // get count month 2
-  app.get("/get_month2", (req, res) => {
-    date1 = new Date();
-    db.query("SELECT count(*) as value FROM rendezvous WHERE MONTH(date) = ?",date1.getMonth(), (err, result) => {
-      if (err) {
-        console.log(err);
-      } else {
-        res.send(result);
-        console.log(result);
-        console.log("ACCEPT month2", date1.getMonth());
-      }
-    }); });
-      // get count month 3
-      app.get("/get_month3", (req, res) => {
-        date1 = new Date();
-        db.query("SELECT count(*) as value FROM rendezvous WHERE MONTH(date) = ?",date1.getMonth() - 1, (err, result) => {
-          if (err) {
-            console.log(err);
-          } else {
-            res.send(result);
-            console.log(result);
-            console.log("ACCEPT month3", date1.getMonth());
-          }
-        }); });
-              // get count month 4
-      app.get("/get_month4", (req, res) => {
-        date1 = new Date();
-        db.query("SELECT count(*) as value FROM rendezvous WHERE MONTH(date) = ?",date1.getMonth() - 2, (err, result) => {
-          if (err) {
-            console.log(err);
-          } else {
-            res.send(result);
-            console.log(result);
-            console.log("ACCEPT month4", date1.getMonth());
-          }
-        }); });
-                      // get count month 5
-      app.get("/get_month5", (req, res) => {
-        date1 = new Date();
-        db.query("SELECT count(*) as value FROM rendezvous WHERE MONTH(date) = ?",date1.getMonth() - 3, (err, result) => {
-          if (err) {
-            console.log(err);
-          } else {
-            res.send(result);
-            console.log(result);
-            console.log("ACCEPT month5", date1.getMonth());
-          }
-        }); });
-                      // get count month 6
-      app.get("/get_month6", (req, res) => {
-        date1 = new Date();
-        db.query("SELECT count(*) as value FROM rendezvous WHERE MONTH(date) = ?",date1.getMonth() - 4, (err, result) => {
-          if (err) {
-            console.log(err);
-          } else {
-            res.send(result);
-            console.log(result);
-            console.log("ACCEPT month6", date1.getMonth());
-          }
-        }); });
-                      // get count month 7
-      app.get("/get_month7", (req, res) => {
-        date1 = new Date();
-        db.query("SELECT count(*) as value FROM rendezvous WHERE MONTH(date) = ?",date1.getMonth() - 5, (err, result) => {
-          if (err) {
-            console.log(err);
-          } else {
-            res.send(result);
-            console.log(result);
-            console.log("ACCEPT month7", date1.getMonth());
-          }
-        }); });
-                      // get count month 8
-      app.get("/get_month8", (req, res) => {
-        date1 = new Date();
-        db.query("SELECT count(*) as value FROM rendezvous WHERE MONTH(date) = ?",date1.getMonth() - 6, (err, result) => {
-          if (err) {
-            console.log(err);
-          } else {
-            res.send(result);
-            console.log(result);
-            console.log("ACCEPT month8", date1.getMonth());
-          }
-        }); });
-              // get count month 9
-              app.get("/get_month9", (req, res) => {
-                date1 = new Date();
-                db.query("SELECT count(*) as value FROM rendezvous WHERE MONTH(date) = ?",date1.getMonth() - 7, (err, result) => {
-                  if (err) {
-                    console.log(err);
-                  } else {
-                    res.send(result);
-                    console.log(result);
-                    console.log("ACCEPT month9", date1.getMonth());
-                  }
-                }); });
-                              // get count month 10
-      app.get("/get_month10", (req, res) => {
-        date1 = new Date();
-        db.query("SELECT count(*) as value FROM rendezvous WHERE MONTH(date) = ?",date1.getMonth() - 8, (err, result) => {
-          if (err) {
-            console.log(err);
-          } else {
-            res.send(result);
-            console.log(result);
-            console.log("ACCEPT month10", date1.getMonth());
-          }
-        }); });
-                      // get count month 11
-      app.get("/get_month11", (req, res) => {
-        date1 = new Date();
-        db.query("SELECT count(*) as value FROM rendezvous WHERE MONTH(date) = ?",date1.getMonth() - 9, (err, result) => {
-          if (err) {
-            console.log(err);
-          } else {
-            res.send(result);
-            console.log(result);
-            console.log("ACCEPT month11", date1.getMonth());
-          }
-        }); });
-                      // get count month 12
-      app.get("/get_month12", (req, res) => {
-        date1 = new Date();
-        db.query("SELECT count(*) as value FROM rendezvous WHERE MONTH(date) = ?",date1.getMonth() - 10, (err, result) => {
-          if (err) {
-            console.log(err);
-          } else {
-            res.send(result);
-            console.log(result);
-            console.log("ACCEPT month12", date1.getMonth());
-          }
-        }); });
+// get count month 1
+app.get("/get_month1", (req, res) => {
+  date1 = new Date();
+  db.query("SELECT count(*) as value FROM rendezvous WHERE MONTH(date) = ?", date1.getMonth() + 1, (err, result) => {
+    if (err) {
+      console.log(err);
+    } else {
+      res.send(result);
+      console.log(result);
+      console.log("ACCEPT month1", date1.getMonth());
+    }
+  });
+});
+// get count month 2
+app.get("/get_month2", (req, res) => {
+  date1 = new Date();
+  db.query("SELECT count(*) as value FROM rendezvous WHERE MONTH(date) = ?", date1.getMonth(), (err, result) => {
+    if (err) {
+      console.log(err);
+    } else {
+      res.send(result);
+      console.log(result);
+      console.log("ACCEPT month2", date1.getMonth());
+    }
+  });
+});
+// get count month 3
+app.get("/get_month3", (req, res) => {
+  date1 = new Date();
+  db.query("SELECT count(*) as value FROM rendezvous WHERE MONTH(date) = ?", date1.getMonth() - 1, (err, result) => {
+    if (err) {
+      console.log(err);
+    } else {
+      res.send(result);
+      console.log(result);
+      console.log("ACCEPT month3", date1.getMonth());
+    }
+  });
+});
+// get count month 4
+app.get("/get_month4", (req, res) => {
+  date1 = new Date();
+  db.query("SELECT count(*) as value FROM rendezvous WHERE MONTH(date) = ?", date1.getMonth() - 2, (err, result) => {
+    if (err) {
+      console.log(err);
+    } else {
+      res.send(result);
+      console.log(result);
+      console.log("ACCEPT month4", date1.getMonth());
+    }
+  });
+});
+// get count month 5
+app.get("/get_month5", (req, res) => {
+  date1 = new Date();
+  db.query("SELECT count(*) as value FROM rendezvous WHERE MONTH(date) = ?", date1.getMonth() - 3, (err, result) => {
+    if (err) {
+      console.log(err);
+    } else {
+      res.send(result);
+      console.log(result);
+      console.log("ACCEPT month5", date1.getMonth());
+    }
+  });
+});
+// get count month 6
+app.get("/get_month6", (req, res) => {
+  date1 = new Date();
+  db.query("SELECT count(*) as value FROM rendezvous WHERE MONTH(date) = ?", date1.getMonth() - 4, (err, result) => {
+    if (err) {
+      console.log(err);
+    } else {
+      res.send(result);
+      console.log(result);
+      console.log("ACCEPT month6", date1.getMonth());
+    }
+  });
+});
+// get count month 7
+app.get("/get_month7", (req, res) => {
+  date1 = new Date();
+  db.query("SELECT count(*) as value FROM rendezvous WHERE MONTH(date) = ?", date1.getMonth() - 5, (err, result) => {
+    if (err) {
+      console.log(err);
+    } else {
+      res.send(result);
+      console.log(result);
+      console.log("ACCEPT month7", date1.getMonth());
+    }
+  });
+});
+// get count month 8
+app.get("/get_month8", (req, res) => {
+  date1 = new Date();
+  db.query("SELECT count(*) as value FROM rendezvous WHERE MONTH(date) = ?", date1.getMonth() - 6, (err, result) => {
+    if (err) {
+      console.log(err);
+    } else {
+      res.send(result);
+      console.log(result);
+      console.log("ACCEPT month8", date1.getMonth());
+    }
+  });
+});
+// get count month 9
+app.get("/get_month9", (req, res) => {
+  date1 = new Date();
+  db.query("SELECT count(*) as value FROM rendezvous WHERE MONTH(date) = ?", date1.getMonth() - 7, (err, result) => {
+    if (err) {
+      console.log(err);
+    } else {
+      res.send(result);
+      console.log(result);
+      console.log("ACCEPT month9", date1.getMonth());
+    }
+  });
+});
+// get count month 10
+app.get("/get_month10", (req, res) => {
+  date1 = new Date();
+  db.query("SELECT count(*) as value FROM rendezvous WHERE MONTH(date) = ?", date1.getMonth() - 8, (err, result) => {
+    if (err) {
+      console.log(err);
+    } else {
+      res.send(result);
+      console.log(result);
+      console.log("ACCEPT month10", date1.getMonth());
+    }
+  });
+});
+// get count month 11
+app.get("/get_month11", (req, res) => {
+  date1 = new Date();
+  db.query("SELECT count(*) as value FROM rendezvous WHERE MONTH(date) = ?", date1.getMonth() - 9, (err, result) => {
+    if (err) {
+      console.log(err);
+    } else {
+      res.send(result);
+      console.log(result);
+      console.log("ACCEPT month11", date1.getMonth());
+    }
+  });
+});
+// get count month 12
+app.get("/get_month12", (req, res) => {
+  date1 = new Date();
+  db.query("SELECT count(*) as value FROM rendezvous WHERE MONTH(date) = ?", date1.getMonth() - 10, (err, result) => {
+    if (err) {
+      console.log(err);
+    } else {
+      res.send(result);
+      console.log(result);
+      console.log("ACCEPT month12", date1.getMonth());
+    }
+  });
+});
 
 // update carte
-app.put("/carte",(req,res) =>{
-    //const idrdv = req.body.idrdv; 
-    const idrdv = req.body.idrdv; 
-    const numberchange = req.body.numberchange;
-  const update_etud ="UPDATE rendezvous SET numero_carte= ?, validation = 1 where id= ?";
-  db.query(update_etud,[numberchange,idrdv],(error,result)=>{
-   res.send(result);
-   console.log("carte updated",result)
-});
+app.put("/carte", (req, res) => {
+  //const idrdv = req.body.idrdv; 
+  const idrdv = req.body.idrdv;
+  const numberchange = req.body.numberchange;
+  const update_etud = "UPDATE rendezvous SET numero_carte= ?, validation = 1 where id= ?";
+  db.query(update_etud, [numberchange, idrdv], (error, result) => {
+    res.send(result);
+    console.log("carte updated", result)
+  });
 });
 
-app.put("/hs",(req,res) =>{
+app.put("/hs", (req, res) => {
   //const idrdv = req.body.idrdv; 
-  const idrdv = req.body.idrdv2; 
+  const idrdv = req.body.idrdv2;
   const HS = req.body.HS;
-const update_etud ="UPDATE rendezvous SET heure_sortie= ?, validation = 2 where id= ?";
-db.query(update_etud,[HS,idrdv],(error,result)=>{
- res.send(result);
- console.log("hs updated",idrdv,HS)
-});
+  const update_etud = "UPDATE rendezvous SET heure_sortie= ?, validation = 2 where id= ?";
+  db.query(update_etud, [HS, idrdv], (error, result) => {
+    res.send(result);
+    console.log("hs updated", idrdv, HS)
+  });
 });
 
-app.put("/deleteacc",(req,res) =>{
+app.put("/deleteacc", (req, res) => {
   //const idrdv = req.body.idrdv; 
-  const iddel = req.body.iddel; 
-const update_del ="DELETE from auth where id= ?";
-db.query(update_del,[iddel],(error,result)=>{
- res.send(result);
- console.log("accccc updated",iddel)
+  const iddel = req.body.iddel;
+  const update_del = "DELETE from auth where id= ?";
+  db.query(update_del, [iddel], (error, result) => {
+    res.send(result);
+    console.log("accccc updated", iddel)
+  });
 });
-});
 
 
 
 
-        
+
 
 
 
